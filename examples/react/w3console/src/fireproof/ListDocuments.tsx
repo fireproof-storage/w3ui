@@ -14,11 +14,16 @@ interface ListDocumentsProps {
   className?: string
 }
 
+function formatTableCellContent(obj:any) {
+  if (typeof obj === 'string') return obj
+  return JSON.stringify(obj)
+}
+
 export function ListDocuments({ spaces, selected, setSelected, className = '' }: ListDocumentsProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [allDocuments, setAllDocuments] = useState<any>([])
-  console.log('allDocuments', updateCount, allDocuments)
+  // console.log('allDocuments', updateCount, allDocuments)
   useEffect(() => {
     if (ready && database) {
       addSubscriber('ListDocuments', () => {
@@ -35,32 +40,60 @@ export function ListDocuments({ spaces, selected, setSelected, className = '' }:
     }
     getDocuments()
   }, [ready, database, updateCount])
+
+  const headers = new Map()
+  for (const doc of allDocuments) {
+    // iterate over object keys and count the number of times each key is used
+    // by using the key of the map as the key of the object, and the value as the count
+    for (const key of Object.keys(doc)) {
+      if (headers.has(key)) {
+        headers.set(key, headers.get(key) + 1)
+      } else {
+        headers.set(key, 1)
+      }
+    }
+  }
+  // remove _id from the headers
+  const idCount = headers.get('_id')
+  headers.delete('_id')
+
+  // sort the headers with the highest count first
+  const sortedHeaders = Array.from(headers.entries()).sort((a, b) => b[1] - a[1])
+
   return (
     <div class={`${className}  bg-slate-800 p-6`}>
       <h2 class="text-2xl">List Documents</h2>
-      
 
-      <ul class="max-w-md pt-4 divide-y divide-gray-200 dark:divide-gray-700">
-        {allDocuments.map((doc: any) => (
-          <DocumentListing doc={doc} />
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-function DocumentListing({ doc : {_id, ...values} }: any): JSX.Element {
-  return (
-    <li key={_id} class="pt-1 pb-2">
-      <div class="flex items-center space-x-4">
-        <div class="flex-shrink-0">
-         *
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/fp-doc?id=${_id}`}>{_id}</a></p>
-          <p class="text-sm text-gray-500 truncate dark:text-gray-400">{JSON.stringify(values)}</p>
-        </div>
+      <div class="relative overflow-x-auto dark">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                _id
+                <sub class="text-gray-400 dark:text-gray-500">({idCount})</sub>
+              </th>
+              {sortedHeaders.map(([header, count]) => (
+                <th scope="col" class="px-6 py-3">
+                  {header}
+                  <sub class="text-gray-400 dark:text-gray-500">({count})</sub>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {allDocuments.map(({ _id, ...fields }: any) => (
+              <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  <a href={`/fp-doc?id=${_id}`}>{_id}</a>
+                </th>
+                {sortedHeaders.map(([header]) => (
+                  <td class="px-6 py-4">{formatTableCellContent(fields[header])}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
-    </li>
+    </div>
   )
 }

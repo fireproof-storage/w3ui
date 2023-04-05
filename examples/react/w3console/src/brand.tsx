@@ -23,7 +23,7 @@ export const NFTStorageLogo = ({ className = '' }: { className?: string }) => (
 
 export const Web3StorageLogo = () => (
   <div className='font-bold flex flex-row justify-center items-center gap-2'>
-    <Web3StorageLogoIcon />
+    {/* <Web3StorageLogoIcon /> */}
     <span>console</span>
   </div>
 )
