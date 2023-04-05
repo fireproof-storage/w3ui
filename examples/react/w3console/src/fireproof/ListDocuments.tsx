@@ -1,11 +1,11 @@
 import type { Space } from '@w3ui/keyring-core'
 
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useState, useEffect, useContext } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-// import {Fireproof} from '@fireproof/core'
-
+// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
 interface ListDocumentsProps {
   spaces: Space[]
@@ -15,52 +15,52 @@ interface ListDocumentsProps {
 }
 
 export function ListDocuments({ spaces, selected, setSelected, className = '' }: ListDocumentsProps): JSX.Element {
-  return <div className={`${className}`}>
-    <h2 class="text-2xl">Fireproof</h2>
-    <p>Database: </p>
-    <nav>
-      <ul>
-      <li>
-        <h3>Documents</h3>
-        <ul class="list-disc pl-8">
-          <li>Create and edit</li>
-          <li>Recently browsed</li>
-          <li>List all</li>
-        </ul>
-      </li>
-      <li>
-        <h3>History</h3>
-        <ul class="list-disc pl-8">
-          <li>Changes feed</li>
-          <li>Visualize clock</li>
-        </ul>
-      </li>
-      <li>
-        <h3>Indexes</h3>
-        <ul class="list-disc pl-8">
-          <li>These are</li>
-          <li>Your indexes</li>
-        </ul>
-      </li>
-      <li>
-        <h3>Validation</h3>
-        <ul class="list-disc pl-8">
-          <li>Function editor</li>
-        </ul>
-      </li>
-      <li>
-        <h3>Replication</h3>
-        <ul class="list-disc pl-8">
-          <li>web3.storage</li>
-        </ul>
-      </li>
-      <li>
-        <h3>Sync</h3>
-        <ul class="list-disc pl-8">
-          <li>WebRTC</li>
-        </ul>
-      </li>
+  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const [updateCount, setUpdateCount] = useState(0)
+  const [allDocuments, setAllDocuments] = useState<any>([])
+  console.log('allDocuments', updateCount, allDocuments)
+  useEffect(() => {
+    if (ready && database) {
+      addSubscriber('ListDocuments', () => {
+        setUpdateCount(count => count + 1)
+      })
+    }
+  }, [ready, database])
+  useEffect(() => {
+    async function getDocuments() {
+      if (ready && database) {
+        const allDocs = await database.allDocuments()
+        setAllDocuments(allDocs.rows.map((row: { value: any }) => row.value))
+      }
+    }
+    getDocuments()
+  }, [ready, database, updateCount])
+  return (
+    <div class={`${className}  bg-slate-300 p-6`}>
+      <h2 class="text-2xl">List Documents</h2>
+      
+
+      <ul class="max-w-md pt-4 divide-y divide-gray-200 dark:divide-gray-700">
+        {allDocuments.map((doc: any) => (
+          <DocumentListing doc={doc} />
+        ))}
       </ul>
-    </nav>
-  </div>
+    </div>
+  )
+}
+
+function DocumentListing({ doc : {_id, ...values} }: any): JSX.Element {
+  return (
+    <li key={_id} class="pt-1 pb-2">
+      <div class="flex items-center space-x-4">
+        <div class="flex-shrink-0">
+         *
+        </div>
+        <div class="flex-1 min-w-0">
+          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/documents/${_id}`}>{_id}</a></p>
+          <p class="text-sm text-gray-500 truncate dark:text-gray-400">{JSON.stringify(values)}</p>
+        </div>
+      </div>
+    </li>
+  )
 }

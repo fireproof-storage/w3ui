@@ -1,10 +1,10 @@
 import type { Space } from '@w3ui/keyring-core'
 
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
-// import {Fireproof} from '@fireproof/core'
+import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
 
 interface SidebarMenuProps {
@@ -15,9 +15,11 @@ interface SidebarMenuProps {
 }
 
 export function SidebarMenu({ spaces, selected, setSelected, className = '' }: SidebarMenuProps): JSX.Element {
+  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  
   return <div className={`${className}`}>
     <h2 class="text-2xl">Fireproof</h2>
-    <p>Database: </p>
+    <p>Fireproof name: <code>{database.name}</code></p>
     <nav>
       <ul>
       <li>
