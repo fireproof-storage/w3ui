@@ -43,7 +43,7 @@ export function SidebarMenu({ }: SidebarMenuProps): JSX.Element {
       <li>
         <h3>History</h3>
         <ul class="list-disc pl-8">
-          <li>Changes feed</li>
+          <li><a href="/fp-changes">Changes feed</a></li>
           <li>Visualize clock</li>
         </ul>
       </li>
