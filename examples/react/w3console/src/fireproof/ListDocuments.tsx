@@ -36,7 +36,7 @@ export function ListDocuments({ spaces, selected, setSelected, className = '' }:
     getDocuments()
   }, [ready, database, updateCount])
   return (
-    <div class={`${className}  bg-slate-300 p-6`}>
+    <div class={`${className}  bg-slate-800 p-6`}>
       <h2 class="text-2xl">List Documents</h2>
       
 
@@ -57,7 +57,7 @@ function DocumentListing({ doc : {_id, ...values} }: any): JSX.Element {
          *
         </div>
         <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/fp-doc/${_id}`}>{_id}</a></p>
+          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/fp-doc?id=${_id}`}>{_id}</a></p>
           <p class="text-sm text-gray-500 truncate dark:text-gray-400">{JSON.stringify(values)}</p>
         </div>
       </div>

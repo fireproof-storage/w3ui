@@ -1,6 +1,6 @@
 import type { Space } from '@w3ui/keyring-core'
 
-import React, { Fragment, useContext, useState } from 'react'
+import React, { Fragment, useContext, useEffect, useState } from 'react'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 
@@ -8,18 +8,28 @@ import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/pac
 
 
 interface SidebarMenuProps {
-  spaces: Space[]
-  selected?: Space
-  setSelected?: (space: Space) => void
-  className?: string
+
 }
 
-export function SidebarMenu({ spaces, selected, setSelected, className = '' }: SidebarMenuProps): JSX.Element {
+export function SidebarMenu({ }: SidebarMenuProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
-  
-  return <div className={`${className}`}>
-    <h2 class="text-2xl">Fireproof</h2>
-    <p>Fireproof name: <code>{database.name}</code></p>
+  const [indexList, setIndexList] = useState<any>([])
+  useEffect(() => {
+    setIndexList([...database.indexes.values()])
+  }, [ready, database])
+  return <>
+  <style>{`
+  .fp-sidebar a {
+    text-decoration: underline;
+  }
+  .fp-sidebar a:hover {
+    color: #ff8200;
+  }
+  `}
+  </style>
+  <div class="fp-sidebar">
+    <h2 class="text-2xl"><a href="/fireproof">Fireproof</a></h2>
+    <p>Database name: <code>{database.name}</code></p>
     <nav>
       <ul>
       <li>
@@ -27,7 +37,7 @@ export function SidebarMenu({ spaces, selected, setSelected, className = '' }: S
         <ul class="list-disc pl-8">
           <li>Create and edit</li>
           <li>Recently browsed</li>
-          <li>List all</li>
+          <li><a href="/fireproof">List all</a></li>
         </ul>
       </li>
       <li>
@@ -40,8 +50,9 @@ export function SidebarMenu({ spaces, selected, setSelected, className = '' }: S
       <li>
         <h3>Indexes</h3>
         <ul class="list-disc pl-8">
-          <li>These are</li>
-          <li>Your indexes</li>
+          {indexList.map((index: any, i: number) => (
+            <li><a href={`/fp-index?id=${i}`}>{index.mapFnString}</a></li>
+          ))}
         </ul>
       </li>
       <li>
@@ -65,4 +76,5 @@ export function SidebarMenu({ spaces, selected, setSelected, className = '' }: S
       </ul>
     </nav>
   </div>
+  </>
 }
