@@ -10,7 +10,7 @@ import { DefaultLayout } from '../components/Layout'
 // import Loader from '../components/Loader'
 
 import { SidebarMenu as FireproofSidebar } from '../fireproof/SidebarMenu'
-import { ListDocuments as FireproofDetail } from '../fireproof/ListDocuments'
+import { EditDocument as FireproofDetail } from '../fireproof/EditDocument'
 
 export default function FireproofDashboard(): JSX.Element {
   const fp = useFireproof((database: any) => {

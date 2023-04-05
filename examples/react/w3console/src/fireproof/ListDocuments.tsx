@@ -57,7 +57,7 @@ function DocumentListing({ doc : {_id, ...values} }: any): JSX.Element {
          *
         </div>
         <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/documents/${_id}`}>{_id}</a></p>
+          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/fp-doc/${_id}`}>{_id}</a></p>
           <p class="text-sm text-gray-500 truncate dark:text-gray-400">{JSON.stringify(values)}</p>
         </div>
       </div>
