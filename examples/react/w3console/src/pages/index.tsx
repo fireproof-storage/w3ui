@@ -17,9 +17,6 @@ import { AuthenticationEnsurer } from '../components/Authenticator'
 import { DefaultLayout } from '../components/Layout'
 import Loader from '../components/Loader'
 
-import {SidebarMenu as FireproofSidebar} from '../fireproof/SidebarMenu'
-import { ListDocuments as FireproofDetail } from '../fireproof/ListDocuments'
-
 function SpaceRegistrar (): JSX.Element {
   const [{ account }, { registerSpace }] = useKeyring()
   const [submitted, setSubmitted] = useState(false)
@@ -195,12 +192,10 @@ export default function Home (): JSX.Element {
               setSelected={viewSpace}
               spaces={spaces}
             />
-            <FireproofSidebar />
             <SpaceCreator className='mb-8 self-center' />
           </div>
         }>
           <SpaceSection viewSpace={viewSpace} share={share} setShare={setShare} />
-          <FireproofDetail />
         </DefaultLayout>
       </SpaceEnsurer>
     </AuthenticationEnsurer>
