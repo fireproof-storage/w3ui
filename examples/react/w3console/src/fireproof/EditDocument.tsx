@@ -3,6 +3,9 @@ import React, { Fragment, useState, useEffect, useContext } from 'react'
 // import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
 import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
+import 'jsoneditor-react/es/editor.min.css';
+
+
 interface EditDocumentProps {}
 
 export function EditDocument({}: EditDocumentProps): JSX.Element {
@@ -22,7 +25,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
     async function getDocument() {
       if (ready && database) {
         const theDoc = await database.get(id) // with meta
-        setTheDocument(theDoc)
+        setTheDocument(JSON.parse(JSON.stringify(theDoc)))
       }
     }
     getDocument()
@@ -30,7 +33,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
   return (
     <div class={`bg-slate-800 p-6`}>
       <h2 class="text-2xl">{theDocument._id}</h2>
-      <pre>{JSON.stringify(theDocument)}</pre>
+      <pre>{JSON.stringify(theDocument, null, 2)}</pre>
     </div>
   )
 }
