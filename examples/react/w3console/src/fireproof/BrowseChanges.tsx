@@ -13,7 +13,6 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   const [theChanges, setTheChanges] = useState<any>([])
   // console.log('BrowseChanges', updateCount, theChanges)
   const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock')||'[]') || null)
-  console.log('firstClock', firstClock)
   useEffect(() => {
     if (ready && database) {
       addSubscriber('BrowseChanges', () => {
