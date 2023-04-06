@@ -12,7 +12,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [theDocument, setTheDocument] = useState<any>({})
-  const [docToSave, setDocToSave] = useState<any>('')
+  const [docToSave, setDocToSave] = useState<any>('{}')
   const [needsSave, setNeedsSave] = useState(false)
 
   const id = window.location.search.split('id=').pop()
@@ -26,7 +26,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
   }, [ready, database])
   useEffect(() => {
     async function getDocument() {
-      if (ready && database) {
+      if (ready && database && id) {
         const theDoc = await database.get(id) // with meta
         const { data } = docAndMeta(theDoc)
         const jsonDoc = JSON.stringify(data)
