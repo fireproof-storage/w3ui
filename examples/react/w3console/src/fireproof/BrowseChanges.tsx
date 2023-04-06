@@ -11,7 +11,9 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [theChanges, setTheChanges] = useState<any>([])
-  console.log('BrowseChanges', updateCount, theChanges)
+  // console.log('BrowseChanges', updateCount, theChanges)
+  const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock')||'[]') || null)
+
   useEffect(() => {
     if (ready && database) {
       addSubscriber('BrowseChanges', () => {
@@ -22,12 +24,16 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   useEffect(() => {
     async function getDocuments() {
       if (ready && database) {
-        const results = await database.changesSince() // todo need head
+        const results = await database.changesSince(firstClock) // todo need head
+        if (!firstClock) {
+          localStorage.setItem('firstClock', JSON.stringify(results.clock))
+          setFirstClock(results.clock)
+        } else 
         setTheChanges(results.rows)
       }
     }
     getDocuments()
-  }, [ready, database, updateCount])
+  }, [ready, database, updateCount, firstClock])
 
   const headers = new Map()
   const theDocs = []

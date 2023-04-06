@@ -53,11 +53,11 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
 
   const { data, meta : {_id, ...meta} } = docAndMeta(theDocument)
   const idFirstMeta = { _id, ...meta}
-  const title = _id ? `_id: ${_id}` : 'New Document'
+  const title = _id ? `Edit document: ${_id}` : 'Create new document'
   return (
     <div class={`bg-slate-800 p-6`}>
-      <h2 class="text-2xl">{title}</h2>
-      <h3>Document data</h3>
+      <h2 class="text-2xl pb-2">{title}</h2>
+      <h3>Editable data fields</h3>
       <EditableCodeHighlight onChange={editorChanged} code={JSON.stringify(data, null, 2)} theme={theme} />
       <button
         onClick={() => {
@@ -67,7 +67,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
       >
         Save
       </button>
-      <h3>Metadata</h3>
+      <h3>Fireproof metadata</h3>
       <CodeHighlight code={JSON.stringify(idFirstMeta, null, 2)} theme={defaultProps.theme} />
     </div>
   )

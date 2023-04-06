@@ -12,7 +12,7 @@ export const DefaultLayout: LayoutComponent = ({ sidebar = <div></div>, children
     <>
       <FireproofMenu />
       <div className="flex min-h-full w-full">
-        <nav className="flex-none w-64 bg-gray-900 text-white pb-4 border-r border-gray-800 h-screen">
+        <nav className="flex-none w-64 bg-gray-900 text-white pb-4 h-screen">
           <div className="flex flex-col justify-between h-full">
             {sidebar}
           </div>
