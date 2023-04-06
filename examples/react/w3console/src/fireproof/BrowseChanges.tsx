@@ -58,8 +58,8 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
 
   return (
     <div class={` bg-slate-800 p-6`}>
+      <a href="#" class="float-right hover:text-orange-400" onClick={resetChangesClock}>Hide existing changes</a>
       <h2 class="text-2xl">Recent changes</h2>
-      <a href="#" onClick={resetChangesClock}>Reset changes clock</a>
       <DynamicTable headers={sortedHeaders} rows={theDocs} />
     </div>
   )
