@@ -61,9 +61,6 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
         persist()      
         document.location = '/fp-index?id=' + (database.indexes.size - 1)
       }
-
-
-      
     }
   }
   const runTempQuery = () => {
@@ -74,7 +71,7 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     }
   }
 
-  const editorChanged = ({ code }: any) => {
+  const editorChanged = ( code : any) => {
     setEditorCode(code)
   }
 
@@ -85,11 +82,10 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
         <CodeHighlight code={theIndex.mapFnString} />
       ) : (
         <>
-          <EditableCodeHighlight onChange={editorChanged} code={editorCode} language="js" />
+          <EditableCodeHighlight onChange={editorChanged} code={emptyMap} language="js" />
           <div class="flow-root p-4" >
-            <button class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-700 hover:bg-yellow-800" onClick={runTempQuery}>Query</button>
+            <button class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-500 hover:bg-yellow-800" onClick={runTempQuery}>Query</button>
             <button class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-700 hover:bg-yellow-800" onClick={saveTempQuery}>Save</button>
-
           </div>
         </>
       )}
