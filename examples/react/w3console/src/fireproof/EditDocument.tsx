@@ -12,7 +12,8 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [theDocument, setTheDocument] = useState<any>({})
-  const [docToSave, setDocToSave] = useState<any>({})
+  const [docToSave, setDocToSave] = useState<any>('')
+  const [needsSave, setNeedsSave] = useState(false)
 
   const id = window.location.search.split('id=').pop()
   // console.log('EditDocument', updateCount, theDocument)
@@ -36,32 +37,38 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
     getDocument()
   }, [ready, database, updateCount])
 
-  async function saveDocument(meta) {
+  async function saveDocument(_id:string) {
     const data = JSON.parse(docToSave)
-    // console.log(meta._id)
-    // console.log(data)
-    // console.log('docToSave', {_id : meta._id, ...data})
-    await database.put({_id : meta._id, ...data})
-    // console.log('saved')
+    const resp = await database.put({_id, ...data})
+    if (!_id) {
+      window.location.href = `/fp-doc?id=${resp.id}`
+    }
+    setNeedsSave(false)
   }
 
-  const { data, meta } = docAndMeta(theDocument)
+  function editorChanged({ code, valid }) {
+    setNeedsSave(valid)
+    setDocToSave(code)
+  }
 
+  const { data, meta : {_id, ...meta} } = docAndMeta(theDocument)
+  const idFirstMeta = { _id, ...meta}
+  const title = _id ? `_id: ${_id}` : 'New Document'
   return (
     <div class={`bg-slate-800 p-6`}>
-      <h2 class="text-2xl">_id: {theDocument._id}</h2>
+      <h2 class="text-2xl">{title}</h2>
       <h3>Document data</h3>
-      <EditableCodeHighlight onChange={setDocToSave} code={JSON.stringify(data, null, 2)} theme={theme} />
+      <EditableCodeHighlight onChange={editorChanged} code={JSON.stringify(data, null, 2)} theme={theme} />
       <button
         onClick={() => {
-          saveDocument(meta)
+          saveDocument(_id)
         }}
-        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-5 rounded"
+        class={`${needsSave ? 'bg-blue-500 hover:bg-blue-700 text-white' : 'bg-gray-700 text-gray-400'}  font-bold py-2 px-4 m-5 rounded`}
       >
         Save
       </button>
       <h3>Metadata</h3>
-      <CodeHighlight code={JSON.stringify(meta, null, 2)} theme={defaultProps.theme} />
+      <CodeHighlight code={JSON.stringify(idFirstMeta, null, 2)} theme={defaultProps.theme} />
     </div>
   )
 }

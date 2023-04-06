@@ -28,8 +28,7 @@ export function SidebarMenu({ }: SidebarMenuProps): JSX.Element {
   `}
   </style>
   <div class="fp-sidebar">
-    <h2 class="text-2xl"><a href="/fireproof">Fireproof</a></h2>
-    <p>Database name: <code>{database.name}</code></p>
+    <h3>Database name: <code>{database.name}</code></h3>
     <nav>
       <ul>
       <li>
@@ -37,7 +36,7 @@ export function SidebarMenu({ }: SidebarMenuProps): JSX.Element {
         <ul class="list-disc pl-8">
           <li>Create and edit</li>
           <li>Recently browsed</li>
-          <li><a href="/fireproof">List all</a></li>
+          <li><a href="/fp-docs">List all</a></li>
         </ul>
       </li>
       <li>

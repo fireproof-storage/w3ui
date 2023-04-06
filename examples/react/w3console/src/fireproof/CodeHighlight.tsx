@@ -9,7 +9,7 @@ export function CodeHighlight({ code, theme, language = 'json' }: any) {
     <div class="p-2">
       <Highlight {...defaultProps} className="p-6" theme={theme || defaultProps.theme} code={code} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={className + ' p-2'} style={style}>
+          <code><pre className={className + ' p-2'} style={style}>
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (
@@ -17,7 +17,7 @@ export function CodeHighlight({ code, theme, language = 'json' }: any) {
                 ))}
               </div>
             ))}
-          </pre>
+          </pre></code>
         )}
       </Highlight>
     </div>
@@ -29,8 +29,19 @@ export function EditableCodeHighlight({ code, theme, onChange, language = 'json'
   const [liveCode, setCode] = useState(code)
   // console.log('liveCode', liveCode, code)
   const onEditableChange = useCallback((liveCode: string) => {
-    setCode(liveCode.slice(0, -1))
-    onChange(liveCode.slice(0, -1))
+    console.log('onEditableChange', liveCode)
+    let setThisCode =liveCode.slice(0, -1)
+    if (language === 'json') {
+      try {
+        setThisCode = JSON.stringify(JSON.parse(liveCode), null, 2)
+        onChange({code : setThisCode, valid : true}) 
+      } catch (e) {
+        onChange({code : setThisCode, valid : false}) 
+      }
+    } else {
+      onChange(setThisCode)
+    }
+    setCode(setThisCode)
   }, [])
 
   useEffect(() => {
@@ -56,7 +67,9 @@ export function EditableCodeHighlight({ code, theme, onChange, language = 'json'
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (
+                  <>
                   <span {...getTokenProps({ token, key })} />
+                  </>
                 ))}
               </div>
             ))}

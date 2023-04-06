@@ -7,6 +7,16 @@ import { CodeHighlight } from './CodeHighlight'
 
 interface BrowseIndexProps {}
 
+function evalFn(fnString: string) {
+  let mapFn
+  try {
+    eval(`mapFn = ${fnString}`)
+    return mapFn
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
@@ -17,13 +27,15 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     const indexes = [...database.indexes.values()]
     const maybeIt = indexes[parseInt(id)]
     if (maybeIt) {
+      console.log('maybeIt', maybeIt)
+      maybeIt.mapFn = evalFn(maybeIt.mapFnString)
       setTheIndex(maybeIt)
     }
   }, [ready, database])
   useEffect(() => {
     async function getQuery() {
       if (ready && database && theIndex.query) {
-        setQueryResult(await theIndex.query({}, false))
+        setQueryResult(await theIndex.query())
       }
     }
     getQuery()
