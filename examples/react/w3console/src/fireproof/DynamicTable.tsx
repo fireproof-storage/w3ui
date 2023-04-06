@@ -1,11 +1,24 @@
+import { useState } from "react"
+
 export default function DynamicTable({ headers, rows, th = '_id', link = ['_id'] }: any) {
+
+  const [columnLinks, setColumnLinks] = useState(link)
+
+  function toggleColumnLinks(header: string) {
+    if (columnLinks.includes(header)) {
+      setColumnLinks(columnLinks.filter((h: string) => h !== header))
+    } else {
+      setColumnLinks([...columnLinks, header])
+    }
+  }
+
   return (
     <div class="relative overflow-x-auto dark mt-4">
       <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             {headers.map((header: string) => (
-              <th scope="col" class="px-6 py-3">
+              <th onClick={()=>toggleColumnLinks(header)} scope="col" class="px-6 py-3">
                 {header}
               </th>
             ))}
@@ -17,11 +30,11 @@ export default function DynamicTable({ headers, rows, th = '_id', link = ['_id']
               {headers.map((header: string) =>
                 header === th ? (
                   <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <TableCell link={link.includes(header)} label={fields[header]} />
+                    <TableCell link={columnLinks.includes(header)} label={fields[header]} />
                   </th>
                 ) : (
                   <td class="px-6 py-4">
-                    <TableCell link={link.includes(header)} label={fields[header]} />
+                    <TableCell link={columnLinks.includes(header)} label={fields[header]} />
                   </td>
                 )
               )}

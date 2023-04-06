@@ -12,8 +12,10 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [theDocument, setTheDocument] = useState<any>({})
+  const [docToSave, setDocToSave] = useState<any>({})
+
   const id = window.location.search.split('id=').pop()
-  console.log('EditDocument', updateCount, theDocument)
+  // console.log('EditDocument', updateCount, theDocument)
   useEffect(() => {
     if (ready && database) {
       addSubscriber('EditDocument', () => {
@@ -25,39 +27,54 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
     async function getDocument() {
       if (ready && database) {
         const theDoc = await database.get(id) // with meta
+        const { data } = docAndMeta(theDoc)
+        const jsonDoc = JSON.stringify(data)
+        setDocToSave(jsonDoc)
         setTheDocument(JSON.parse(JSON.stringify(theDoc)))
       }
     }
     getDocument()
   }, [ready, database, updateCount])
 
-  const docData = {}
-  const docMeta = {}
-  Object.keys(theDocument).forEach(key => {
-    if (key.startsWith('_')) {
-      docMeta[key] = theDocument[key]
-    } else {
-      docData[key] = theDocument[key]
-    }
-  })
-
-  async function saveDocument(meta, data) {
-    console.log(meta._id)
-    console.log(data)
+  async function saveDocument(meta) {
+    const data = JSON.parse(docToSave)
+    // console.log(meta._id)
+    // console.log(data)
+    // console.log('docToSave', {_id : meta._id, ...data})
     await database.put({_id : meta._id, ...data})
-    console.log('saved')
+    // console.log('saved')
   }
+
+  const { data, meta } = docAndMeta(theDocument)
 
   return (
     <div class={`bg-slate-800 p-6`}>
       <h2 class="text-2xl">_id: {theDocument._id}</h2>
       <h3>Document data</h3>
-      <EditableCodeHighlight code={JSON.stringify(docData, null, 2)} theme={theme} />
-      <button onClick={() => {saveDocument(docMeta, docData)}} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-5 rounded">Save</button>
+      <EditableCodeHighlight onChange={setDocToSave} code={JSON.stringify(data, null, 2)} theme={theme} />
+      <button
+        onClick={() => {
+          saveDocument(meta)
+        }}
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 m-5 rounded"
+      >
+        Save
+      </button>
       <h3>Metadata</h3>
-      <CodeHighlight code={JSON.stringify(docMeta, null, 2)} theme={defaultProps.theme} />
+      <CodeHighlight code={JSON.stringify(meta, null, 2)} theme={defaultProps.theme} />
     </div>
   )
 }
 
-
+function docAndMeta(doc) {
+  const data = {}
+  const meta = {}
+  Object.keys(doc).forEach((key: string) => {
+    if (key.startsWith('_')) {
+      meta[key] = doc[key]
+    } else {
+      data[key] = doc[key]
+    }
+  })
+  return { data, meta }
+}

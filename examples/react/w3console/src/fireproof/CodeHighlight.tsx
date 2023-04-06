@@ -24,12 +24,13 @@ export function CodeHighlight({ code, theme, language = 'json' }: any) {
   )
 }
 
-export function EditableCodeHighlight({ code, theme, language = 'json' }: any) {
+export function EditableCodeHighlight({ code, theme, onChange, language = 'json'}: any) {
   const editorRef = useRef(null)
   const [liveCode, setCode] = useState(code)
   // console.log('liveCode', liveCode, code)
   const onEditableChange = useCallback((liveCode: string) => {
     setCode(liveCode.slice(0, -1))
+    onChange(liveCode.slice(0, -1))
   }, [])
 
   useEffect(() => {
