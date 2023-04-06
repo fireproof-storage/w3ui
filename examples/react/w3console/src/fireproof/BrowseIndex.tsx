@@ -2,6 +2,8 @@ import React, { Fragment, useState, useEffect, useContext } from 'react'
 
 // import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
 import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import DynamicTable from './DynamicTable'
+import { CodeHighlight } from './CodeHighlight'
 
 interface BrowseIndexProps {}
 
@@ -26,31 +28,14 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     }
     getQuery()
   }, [ready, database, theIndex, updateCount])
+
+  const headers = ['key', 'id', 'value']
+
   return (
     <div class={`bg-slate-800 p-6`}>
       <h2 class="text-2xl">Index</h2>
-      <pre>{theIndex.mapFnString}</pre>
-      <ul class="max-w-md pt-4 divide-y divide-gray-200 dark:divide-gray-700">
-        {queryResult.rows.map((row: any) => (
-          <RowListing row={row} />
-        ))}
-      </ul>
+      <CodeHighlight code={theIndex.mapFnString}/>
+      <DynamicTable headers={headers} th="key" link={['id']} rows={queryResult.rows} />
     </div>
-  )
-}
-
-function RowListing({ row : {id, key, value} }: any): JSX.Element {
-  return (
-    <li key={id} class="pt-1 pb-2">
-      <div class="flex items-center space-x-4">
-        <div class="flex-shrink-0">
-         *
-        </div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900 truncate dark:text-white"><a href={`/fp-doc?id=${id}`}>{id}</a></p>
-          <p class="text-sm text-gray-500 truncate dark:text-gray-400">{JSON.stringify(value)}</p>
-        </div>
-      </div>
-    </li>
   )
 }

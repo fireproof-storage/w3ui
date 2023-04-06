@@ -256,6 +256,7 @@ importers:
       react-router-dom: ^6.9.0
       tailwindcss: ^3.2.4
       typescript: ^4.9.3
+      use-editable: ^2.3.3
       vite: ^4.0.0
     dependencies:
       '@fireproof/core': 0.1.1
@@ -272,6 +273,7 @@ importers:
       preact: 10.11.3
       prism-react-renderer: 1.3.5
       react-router-dom: 6.9.0
+      use-editable: 2.3.3
     devDependencies:
       '@preact/preset-vite': 2.5.0_preact@10.11.3+vite@4.0.3
       '@types/blueimp-md5': 2.18.0
@@ -13059,6 +13061,12 @@ packages:
       querystringify: 2.2.0
       requires-port: 1.0.0
     dev: true
+
+  /use-editable/2.3.3:
+    resolution: {integrity: sha512-7wVD2JbfAFJ3DK0vITvXBdpd9JAz5BcKAAolsnLBuBn6UDDwBGuCIAGvR3yA2BNKm578vAMVHFCWaOcA+BhhiA==}
+    peerDependencies:
+      react: '>= 16.8.0'
+    dev: false
 
   /use-local-storage-state/18.2.1:
     resolution: {integrity: sha512-JgFWmMIIsN3uIQ2hSDhYGiYdfykMFVPNX/vz5JX/9V1igJSUjEe30CgswH076YqBx4Njea1NJ6B4farIlnSLuA==}

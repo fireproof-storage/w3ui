@@ -3,6 +3,7 @@ import { Combobox, Transition } from '@headlessui/react'
 
 // import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
 import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import DynamicTable from './DynamicTable'
 
 interface BrowseChangesProps {}
 
@@ -27,15 +28,27 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
     }
     getDocuments()
   }, [ready, database, updateCount])
+
+  const headers = new Map()
+  const theDocs = []
+  for (const {key, value} of theChanges) {
+    const theDoc = {_id : key, ...value}
+    theDocs.push(theDoc)
+    for (const key of Object.keys(theDoc)) {
+      if (headers.has(key)) {
+        headers.set(key, headers.get(key) + 1)
+      } else {
+        headers.set(key, 1)
+      }
+    }
+  }
+  headers.delete('_id')
+  const sortedHeaders = ['_id',, ...Array.from(headers.entries()).sort((a, b) => b[1] - a[1]).map(([key]) => key)]
+
   return (
     <div class={` bg-slate-800 p-6`}>
       <h2 class="text-2xl">Recent changes</h2>
-
-      <ul class="max-w-md pt-4 divide-y divide-gray-200 dark:divide-gray-700">
-        {theChanges.map((row: any) => (
-          <ChangeListing row={row} />
-        ))}
-      </ul>
+      <DynamicTable headers={sortedHeaders} rows={theDocs} />
     </div>
   )
 }
