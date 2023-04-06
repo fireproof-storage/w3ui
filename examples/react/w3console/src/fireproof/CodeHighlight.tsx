@@ -9,39 +9,39 @@ export function CodeHighlight({ code, theme, language = 'json' }: any) {
     <div class="p-2">
       <Highlight {...defaultProps} className="p-6" theme={theme || defaultProps.theme} code={code} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <code><pre className={className + ' p-2'} style={style}>
-            {tokens.map((line, i) => (
-              <div {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            ))}
-          </pre></code>
+          <code>
+            <pre className={className + ' p-2'} style={style}>
+              {tokens.map((line, i) => (
+                <div {...getLineProps({ line, key: i })}>
+                  {line.map((token, key) => (
+                    <span {...getTokenProps({ token, key })} />
+                  ))}
+                </div>
+              ))}
+            </pre>
+          </code>
         )}
       </Highlight>
     </div>
   )
 }
 
-export function EditableCodeHighlight({ code, theme, onChange, language = 'json'}: any) {
+export function EditableCodeHighlight({ code, theme, onChange, language = 'json' }: any) {
   const editorRef = useRef(null)
   const [liveCode, setCode] = useState(code)
   // console.log('liveCode', liveCode, code)
   const onEditableChange = useCallback((liveCode: string) => {
-    console.log('onEditableChange', liveCode)
-    let setThisCode =liveCode.slice(0, -1)
+    let setThisCode = liveCode.slice(0, -1)
     if (language === 'json') {
       try {
         setThisCode = JSON.stringify(JSON.parse(liveCode), null, 2)
-        onChange({code : setThisCode, valid : true}) 
+        onChange({ code: setThisCode, valid: true })
       } catch (e) {
-        onChange({code : setThisCode, valid : false}) 
+        onChange({ code: setThisCode, valid: false })
       }
     } else {
-      onChange(setThisCode)
+      onChange({ code: setThisCode, valid: true })
     }
-    setCode(setThisCode)
   }, [])
 
   useEffect(() => {
@@ -68,7 +68,7 @@ export function EditableCodeHighlight({ code, theme, onChange, language = 'json'
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (
                   <>
-                  <span {...getTokenProps({ token, key })} />
+                    <span {...getTokenProps({ token, key })} />
                   </>
                 ))}
               </div>

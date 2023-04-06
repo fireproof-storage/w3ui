@@ -13,10 +13,8 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   const [indexList, setIndexList] = useState<any>([])
   const [changes, setChanges] = useState([])
   const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
-  console.log('sidebar firstClock', firstClock)
 
   // todo extract to useChanges
-
   async function queryChanges() {
     if (ready && database) {
       const results = await database.changesSince(firstClock)
@@ -30,7 +28,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   useEffect(() => {
     if (ready && database) {
       // todo move inside useFireproof.addSubscriber
-      addSubscriber('BrowseChanges', () => {
+      addSubscriber('SidebarMenu', () => {
         queryChanges()
       })
     }
@@ -199,7 +197,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                 <ul id="dropdown-example" class="py-2 space-y-2">
                   <li>
                     <a
-                      href="/fp-changes"
+                      href="/fp-index"
                       class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       Define index
