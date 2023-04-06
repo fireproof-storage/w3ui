@@ -13,7 +13,7 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   const [theChanges, setTheChanges] = useState<any>([])
   // console.log('BrowseChanges', updateCount, theChanges)
   const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock')||'[]') || null)
-
+  console.log('firstClock', firstClock)
   useEffect(() => {
     if (ready && database) {
       addSubscriber('BrowseChanges', () => {
@@ -25,7 +25,7 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
     async function getDocuments() {
       if (ready && database) {
         const results = await database.changesSince(firstClock) // todo need head
-        if (!firstClock) {
+        if (!firstClock.length) {
           localStorage.setItem('firstClock', JSON.stringify(results.clock))
           setFirstClock(results.clock)
         } else 
@@ -34,6 +34,12 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
     }
     getDocuments()
   }, [ready, database, updateCount, firstClock])
+
+
+  function resetChangesClock() {
+    localStorage.removeItem('firstClock')
+    setFirstClock([])
+  }
 
   const headers = new Map()
   const theDocs = []
@@ -54,6 +60,7 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   return (
     <div class={` bg-slate-800 p-6`}>
       <h2 class="text-2xl">Recent changes</h2>
+      <a href="#" onClick={resetChangesClock}>Reset changes clock</a>
       <DynamicTable headers={sortedHeaders} rows={theDocs} />
     </div>
   )

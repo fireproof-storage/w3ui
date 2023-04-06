@@ -1,6 +1,6 @@
 export function FireproofMenu() {
   return (
-    <header class="bg-gray-800 py-4 px-5 flex items-center justify-between">
+    <header class="bg-gray-800 pt-3 pb-1 px-5 flex items-center justify-between">
       <a href="https://fireproof.storage/">
         <img
           src="https://fireproof.storage/static/img/logo-animated.svg"

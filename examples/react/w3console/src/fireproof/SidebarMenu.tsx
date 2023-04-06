@@ -11,9 +11,36 @@ interface SidebarMenuProps {}
 export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [indexList, setIndexList] = useState<any>([])
+  const [changes, setChanges] = useState([])
+  const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
+  console.log('sidebar firstClock', firstClock)
+
+  // todo extract to useChanges
+
+  async function queryChanges() {
+    if (ready && database) {
+      const results = await database.changesSince(firstClock)
+      if (!firstClock.length) {
+        localStorage.setItem('firstClock', JSON.stringify(results.clock))
+        setFirstClock(results.clock)
+      } else setChanges(results.rows)
+    }
+  }
+
+  useEffect(() => {
+    if (ready && database) {
+      // todo move inside useFireproof.addSubscriber
+      addSubscriber('BrowseChanges', () => {
+        queryChanges()
+      })
+    }
+    queryChanges()
+  }, [ready, database])
+
   useEffect(() => {
     setIndexList([...database.indexes.values()])
   }, [ready, database])
+
   return (
     <>
       <style>
@@ -55,7 +82,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
           class="w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
         >
-          <div class="h-full px-3 py-4 overflow-y-auto">
+          <div class="h-full px-4 py-5 overflow-y-auto">
             <ul class="space-y-2 font-medium">
               {/* <li>
                 <a
@@ -76,8 +103,8 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                 </a>
               </li> */}
               <li>
-              <a
-                      href="/fp-docs"
+                <a
+                  href="/fp-docs"
                   type="button"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   aria-controls="dropdown-example"
@@ -99,7 +126,6 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>
                     Documents
                   </span>
-                  
                 </a>
                 <ul id="dropdown-example" class="py-2 space-y-2">
                   <li>
@@ -127,8 +153,8 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   <span class="flex-1 ml-3 whitespace-nowrap">History</span>
 
                   <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
-                    3
-                  </span>
+                  {changes.length}
+                </span>
                 </a>
                 
               </li>
