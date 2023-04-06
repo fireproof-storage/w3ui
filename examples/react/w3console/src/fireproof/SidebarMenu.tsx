@@ -52,7 +52,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
 
         <aside
           id="sidebar-multi-level-sidebar"
-          class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+          class="w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
           aria-label="Sidebar"
         >
           <div class="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
@@ -76,15 +76,15 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                 </a>
               </li> */}
               <li>
-                <button
+                <span
                   type="button"
-                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                  class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group dark:text-white"
                   aria-controls="dropdown-example"
                   data-collapse-toggle="dropdown-example"
                 >
                   <svg
                     aria-hidden="true"
-                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white"
+                    class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 "
                     fill="currentColor"
                     viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg"
@@ -98,20 +98,8 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item>
                     Documents
                   </span>
-                  <svg
-                    sidebar-toggle-item
-                    class="w-6 h-6"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                      clip-rule="evenodd"
-                    ></path>
-                  </svg>
-                </button>
+                  
+                </span>
                 <ul id="dropdown-example" class="py-2 space-y-2">
                   <li>
                     <a
@@ -168,7 +156,6 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                 </ul>
               </li>
 
-              
               <li>
                 <button
                   type="button"
@@ -207,7 +194,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   </svg>
                 </button>
                 <ul id="dropdown-example" class="py-2 space-y-2">
-                <li>
+                  <li>
                     <a
                       href="/fp-changes"
                       class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
@@ -252,63 +239,6 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
             </ul>
           </div>
         </aside>
-
-        <div class="p-4 sm:ml-64">Rest of page content</div>
-
-        <h3>
-          Database name: <code>{database.name}</code>
-        </h3>
-        <nav>
-          <ul>
-            <li>
-              <h3>Documents</h3>
-              <ul class="list-disc pl-8">
-                <li>Create and edit</li>
-                <li>Recently browsed</li>
-                <li>
-                  <a href="/fp-docs">List all</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <h3>History</h3>
-              <ul class="list-disc pl-8">
-                <li>
-                  <a href="/fp-changes">Changes feed</a>
-                </li>
-                <li>Visualize clock</li>
-              </ul>
-            </li>
-            <li>
-              <h3>Indexes</h3>
-              <ul class="list-disc pl-8">
-                {indexList.map((index: any, i: number) => (
-                  <li>
-                    <a href={`/fp-index?id=${i}`}>{index.mapFnString}</a>
-                  </li>
-                ))}
-              </ul>
-            </li>
-            <li>
-              <h3>Validation</h3>
-              <ul class="list-disc pl-8">
-                <li>Function editor</li>
-              </ul>
-            </li>
-            <li>
-              <h3>Replication</h3>
-              <ul class="list-disc pl-8">
-                <li>web3.storage</li>
-              </ul>
-            </li>
-            <li>
-              <h3>Sync</h3>
-              <ul class="list-disc pl-8">
-                <li>WebRTC</li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
       </div>
     </>
   )
