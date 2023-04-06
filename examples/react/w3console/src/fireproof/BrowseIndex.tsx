@@ -31,7 +31,6 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
       const indexes = [...database.indexes.values()]
       const maybeIt = indexes[parseInt(id)]
       if (maybeIt) {
-        console.log('maybeIt', maybeIt)
         maybeIt.mapFn = evalFn(maybeIt.mapFnString)
         setTheIndex(maybeIt)
       }
@@ -71,7 +70,7 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     }
   }
 
-  const editorChanged = ( code : any) => {
+  const editorChanged = ( {code} : any) => {
     setEditorCode(code)
   }
 

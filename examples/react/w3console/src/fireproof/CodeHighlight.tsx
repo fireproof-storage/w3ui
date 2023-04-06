@@ -40,8 +40,8 @@ export function EditableCodeHighlight({ code, theme, onChange, language = 'json'
         onChange({ code: setThisCode, valid: false })
       }
     } else {
-      // onChange({ code: setThisCode, valid: true })
-      onChange(setThisCode)
+      onChange({ code: setThisCode, valid: true })
+      // onChange(setThisCode)
     }
     setCode(setThisCode)
   }, [])
