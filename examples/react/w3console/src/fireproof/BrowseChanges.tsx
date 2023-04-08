@@ -54,7 +54,7 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
     }
   }
   headers.delete('_id')
-  const sortedHeaders = ['_id',, ...Array.from(headers.entries()).sort((a, b) => b[1] - a[1]).map(([key]) => key)]
+  const sortedHeaders = ['_id', ...Array.from(headers.entries()).sort((a, b) => b[1] - a[1]).map(([key]) => key)]
   return (
     <div class={` bg-slate-800 p-6`}>
       <a href="#" class="float-right hover:text-orange-400" onClick={resetChangesClock}>Hide existing changes</a>
