@@ -41,7 +41,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
     const data = JSON.parse(docToSave)
     const resp = await database.put({_id, ...data})
     if (!_id) {
-      window.location.href = `/fp-doc?id=${resp.id}`
+      window.location.href = `/fireproof/doc?id=${resp.id}`
     }
     setNeedsSave(false)
   }

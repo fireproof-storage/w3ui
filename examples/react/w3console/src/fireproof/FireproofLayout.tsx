@@ -1,18 +1,17 @@
-// import type { ChangeEvent } from 'react'
-
-// import { useEffect, useState } from 'react'
-// import { ShareIcon } from '@heroicons/react/20/solid'
-// import md5 from 'blueimp-md5'
-
 // import { FireproofCtx, useFireproof } from '@fireproof/core/hooks/use-fireproof'
+import { Fireproof } from '../../../../../../fireproof/packages/fireproof/index.js'
 import { FireproofCtx, useFireproof } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 import { DefaultLayout } from '../components/Layout'
 // import Loader from '../components/Loader'
 
 import { SidebarMenu as FireproofSidebar } from '../fireproof/SidebarMenu'
-import { ListDocuments as FireproofDetail } from '../fireproof/ListDocuments'
 
-export default function FireproofDashboard(): JSX.Element {
+declare global {
+  interface Window {
+    fireproof: Fireproof
+  }
+}
+export default function FireproofLayout({ children }): JSX.Element {
   const fp = useFireproof(
     (database: any) => {
       window.fireproof = database
@@ -30,7 +29,7 @@ export default function FireproofDashboard(): JSX.Element {
           </div>
         }
       >
-        <FireproofDetail />
+        {children}
       </DefaultLayout>
     </FireproofCtx.Provider>
   )

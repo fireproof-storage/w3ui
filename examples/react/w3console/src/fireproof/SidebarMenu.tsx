@@ -102,7 +102,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
               </li> */}
               <li>
                 <a
-                  href="/fp-docs"
+                  href="/fireproof/docs"
                   type="button"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                   aria-controls="dropdown-example"
@@ -128,7 +128,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                 <ul id="dropdown-example" class="py-2 space-y-2">
                   <li>
                     <a
-                      href="/fp-doc"
+                      href="/fireproof/doc"
                       class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       Create
@@ -138,7 +138,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
               </li>
               <li>
               <a
-                      href="/fp-changes" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                      href="/fireproof/changes" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                   <svg
                     aria-hidden="true"
                     class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -197,7 +197,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                 <ul id="dropdown-example" class="py-2 space-y-2">
                   <li>
                     <a
-                      href="/fp-index"
+                      href="/fireproof/dbindex"
                       class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
                     >
                       Define index
@@ -206,10 +206,10 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   {indexList.map((index: any, i: number) => (
                     <li>
                       <a
-                        href={`/fp-index?id=${i}`}
-                        class="flex font-light text-xs break-all font-mono items-center overflow-hidden w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                        href={`/fireproof/dbindex?id=${i}`}
+                        class="flex font-light text-sm break-all font-mono items-center overflow-hidden w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
                       >
-                        {index.mapFnString}
+                        {index.name}
                       </a>
                     </li>
                   ))}
