@@ -12,7 +12,7 @@ for (const path of Object.keys(pages)) {
   if (!fileName) {
     continue
   }
-  console.log('route', fileName)
+  // console.log('route', fileName)
   const normalizedPathName = fileName.includes('$') ? fileName.replace('$', ':') : fileName.replace(/\/index/, '')
 
   routes.push({
