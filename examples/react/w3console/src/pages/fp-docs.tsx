@@ -13,9 +13,13 @@ import { SidebarMenu as FireproofSidebar } from '../fireproof/SidebarMenu'
 import { ListDocuments as FireproofDetail } from '../fireproof/ListDocuments'
 
 export default function FireproofDashboard(): JSX.Element {
-  const fp = useFireproof((database: any) => {
-    window.fireproof = database
-  })
+  const fp = useFireproof(
+    (database: any) => {
+      window.fireproof = database
+    },
+    async () => {},
+    FireproofSidebar.dbName
+  )
 
   return (
     <FireproofCtx.Provider value={fp}>

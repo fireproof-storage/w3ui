@@ -244,3 +244,5 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
     </>
   )
 }
+
+SidebarMenu.dbName = "todomvc"

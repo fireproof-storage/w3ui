@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import preact from '@preact/preset-vite'
 import path from 'path'
+import { nodePolyfills } from 'vite-plugin-node-polyfills'
 
 // modified fix from https://github.com/preactjs/preset-vite/issues/56
 // also includes `preact/jsx-runtime` alias, as rollup build fails without it.
@@ -25,7 +26,10 @@ patchedPreactPlugin[0].config = () => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '',
-  plugins: [patchedPreactPlugin],
+  plugins: [patchedPreactPlugin, nodePolyfills({
+    // Whether to polyfill `node:` protocol imports.
+    protocolImports: false
+  })],
   server: {
     port: 3000,
   },
