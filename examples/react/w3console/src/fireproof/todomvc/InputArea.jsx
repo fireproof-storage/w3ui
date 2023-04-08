@@ -17,7 +17,7 @@ export default function InputArea ({ onSubmit, placeholder, autoFocus = true }) 
   }
   return (
     <input
-      className='new-todo' placeholder={placeholder}
+      class="p-2 w-full bg-slate-300 rounded" placeholder={placeholder}
       onKeyDown={handleNewTodoKeyDown} {...inputProps}
     />
   )

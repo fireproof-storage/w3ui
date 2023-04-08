@@ -12,14 +12,13 @@ const threeEmptyLists: ListDoc[] = [
   { title: '', _id: '', type: 'list' }
 ]
 
-
 /**
  * A React functional component that renders a list of todo lists.
  *
  * @returns {JSX.Element}
  *   A React element representing the rendered lists.
  */
-export function AllLists({navigateTo}): JSX.Element {
+export function AllLists({ navigateTo }): JSX.Element {
   // first data stuff
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const { addList, fetchAllLists } = makeQueryFunctions({ ready, database })
@@ -30,7 +29,6 @@ export function AllLists({navigateTo}): JSX.Element {
   }
 
   addSubscriber('AllLists', () => {
-    console.log('AllLists')
     getLists()
   })
 
@@ -40,39 +38,30 @@ export function AllLists({navigateTo}): JSX.Element {
 
   return (
     <div>
-      <div className="listNav">
-        <button
-          onClick={async () => {
-            console.log('await database.changesSince()', await database.changesSince())
-          }}
-        >
-          Choose a list.
-        </button>
-        <label></label>
+      <div class="italic p-2">
+        Choose a todo list or create a new one:
       </div>
-      <ul className="todo-list">{lists.map((l, i)=>{
-        return todoItem(l, i, navigateTo)
-      })}</ul>
-      <InputArea onSubmit={addList} placeholder="Create a new list or choose one" />
+      <ul class="p-2">
+        {lists.map((l, i) => {
+          return todoItem(l, i, navigateTo)
+        })}
+      </ul>
+      <InputArea onSubmit={addList} placeholder="Name a new list and hit enter" />
     </div>
   )
 }
 
 const todoItem = ({ title, _id }: ListDoc, i: number, navigateTo: Function) => {
-  if (_id === '') {
-    return (
-      <li key={_id || i}>
-        <label>&nbsp;</label>
-      </li>
+  const link =
+    _id === '' ? (
+      <label>&nbsp;</label>
+    ) : (
+      <label>
+        <button  onClick={() => navigateTo({ list: _id })}>
+          {title}
+        </button>
+      </label>
     )
-  } else {
-    return (
-      <li key={_id || i}>
-        <label>
-          <a href="#" onClick={() => navigateTo({list:_id})}>
-            {title}</a>
-        </label>
-      </li>
-    )
-  }
+
+  return <li class="p-2 hover:bg-gray-200 rounded" key={_id || i}>{link}</li>
 }

@@ -35,14 +35,13 @@ export function List({listId, navigateTo}): JSX.Element {
 
   return (
     <div>
-      <div className="listNav">
-        <button onClick={() => navigateTo({all : true})}>Back to all lists</button>
-        <label>{list.title}</label>
+      <div class="text-center p-2">
+        Current list: <strong>{list.title}</strong>
       </div>
 
-      <ul className="todo-list">
+      <ul class="p-2">
         {todos.map((todo: TodoDoc) => {
-          const handle = (fn: (arg0: TodoDoc, arg1: string) => any) => (val: string) => fn(todo, val)
+          const handle = (fn: (arg0: TodoDoc, arg1: string) => any) => (val: string) => [setEditing(''), fn(todo, val)]
           return (
             <TodoItem
               key={todo._id}
@@ -58,6 +57,7 @@ export function List({listId, navigateTo}): JSX.Element {
         })}
       </ul>
       <InputArea onSubmit={onSubmit} placeholder="Add a new item to your list." />
+      <button class="italic" onClick={() => navigateTo({all : true})}>Back to all lists</button>
     </div>
   )
 }

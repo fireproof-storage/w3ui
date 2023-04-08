@@ -15,8 +15,8 @@ export const TodoMVC = () => {
     page = <List listId={nav.list} navigateTo={navigateTo}/>
   }
   return (
-    <div class="p-4">
-      <h1>TodoMVC</h1>
+    <div class="p-4 w-full max-w-prose bg-white text-black">
+      <h1 class="text-xl text-center font-bold p-2">TodoMVC</h1>
       {page}
     </div>
   )

@@ -43,7 +43,7 @@ class TodoItem extends Component {
    * just use it as an example of how little code it takes to get an order
    * of magnitude performance improvement.
    */
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return (
       nextProps.todo !== this.props.todo ||
       nextProps.editing !== this.props.editing ||
@@ -57,7 +57,7 @@ class TodoItem extends Component {
    * For more info refer to notes at https://facebook.github.io/react/docs/component-api.html#setstate
    * and https://facebook.github.io/react/docs/component-specs.html#updating-componentdidupdate
    */
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (!prevProps.editing && this.props.editing) {
       const node = this.EditFieldRef.current
       node.focus()
@@ -65,29 +65,34 @@ class TodoItem extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <li
-        className={`${this.props.todo.completed && 'completed'} ${this.props.editing && 'editing'}`}
+        className={`p-2 hover:bg-gray-200 rounded ${
+          this.props.todo.completed && 'completed'} ${
+          this.props.editing && 'editing'
+        }`}
       >
-        <div className='view'>
+        <div>
           <input
-            className='toggle'
-            type='checkbox'
+            class="m-2"
+            type="checkbox"
             checked={this.props.todo.completed}
             onChange={this.props.onToggle}
           />
-          <label onDoubleClick={this.handleEdit}>{this.props.todo.title}</label>
-          <button className='destroy' onClick={this.props.onDestroy} />
+          {this.props.editing && (
+          <input
+            ref={this.EditFieldRef}
+            class="bg-slate-100 rounded w-3/4"
+            value={this.state.editText}
+            onBlur={this.handleSubmit}
+            onChange={this.handleChange}
+            onKeyDown={this.handleKeyDown}
+          />
+        )}
+          {!this.props.editing && <label onDoubleClick={this.handleEdit}>{this.props.todo.title}</label>}
+          <button class="float-right" onClick={this.props.onDestroy} >x</button>
         </div>
-        <input
-          ref={this.EditFieldRef}
-          className='edit'
-          value={this.state.editText}
-          onBlur={this.handleSubmit}
-          onChange={this.handleChange}
-          onKeyDown={this.handleKeyDown}
-        />
       </li>
     )
   }
