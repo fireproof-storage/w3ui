@@ -3,6 +3,9 @@ import { Fireproof } from '../../../../../../fireproof/packages/fireproof/index.
 import { FireproofCtx, useFireproof } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 import { DefaultLayout } from '../components/Layout'
 // import Loader from '../components/Loader'
+import { TodoMVC } from './todomvc/TodoMVC.js'
+
+import { defineIndexes } from './todomvc/setupFireproof.js'
 
 import { SidebarMenu as FireproofSidebar } from '../fireproof/SidebarMenu'
 
@@ -13,9 +16,7 @@ declare global {
 }
 export default function FireproofLayout({ children }): JSX.Element {
   const fp = useFireproof(
-    (database: any) => {
-      window.fireproof = database
-    },
+    defineIndexes,
     async () => {},
     FireproofSidebar.dbName
   )
@@ -29,7 +30,13 @@ export default function FireproofLayout({ children }): JSX.Element {
           </div>
         }
       >
-        {children}
+        <div class="flex mb-4">
+  <div class="w-1/2  h-12">{children}</div>
+  <div class="w-1/2  h-12">
+    <TodoMVC/>
+  </div>
+</div>
+        
       </DefaultLayout>
     </FireproofCtx.Provider>
   )
