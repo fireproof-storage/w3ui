@@ -38,6 +38,7 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   function resetChangesClock() {
     localStorage.removeItem('firstClock')
     setFirstClock([])
+    document.location = document.location
   }
 
   const headers = new Map()
