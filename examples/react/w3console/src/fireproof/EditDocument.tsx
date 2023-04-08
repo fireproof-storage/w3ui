@@ -49,6 +49,11 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
     setNeedsSave(false)
   }
 
+  async function deleteDocument(_id: string) {
+    await database.del(_id)
+    window.location.href = `/fireproof/docs`
+  }
+
   function editorChanged({ code, valid }) {
     setNeedsSave(valid)
     setDocToSave(code)
@@ -77,7 +82,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
         Save
       </button>
       <button
-        onClick={() => database.del(_id)}
+        onClick={() => deleteDocument(_id)}
         class={`${
           !!_id ? 'bg-gray-700 hover:bg-orange-700 hover:text-white' : 'bg-gray-700 '
         }  text-gray-400 font-bold py-2 px-4 my-5 rounded`}
