@@ -52,33 +52,9 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   `}
       </style>
       <div class=" dark">
-        <button
-          data-drawer-target="sidebar-multi-level-sidebar"
-          data-drawer-toggle="sidebar-multi-level-sidebar"
-          aria-controls="sidebar-multi-level-sidebar"
-          type="button"
-          class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        >
-          <span class="sr-only">Open sidebar</span>
-          <svg
-            class="w-6 h-6"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              fill-rule="evenodd"
-              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-            ></path>
-          </svg>
-        </button>
-
         <aside
           id="sidebar-multi-level-sidebar"
           class="w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-          aria-label="Sidebar"
         >
           <div class="h-full px-4 py-5 overflow-y-auto">
             <ul class="space-y-2 font-medium">
@@ -103,7 +79,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
               <li>
                 <a
                   href="/fireproof/docs"
-                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black"
+                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -126,7 +102,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
               <li>
                 <a
                   href="/fireproof/doc"
-                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black"
+                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -142,14 +118,13 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                       d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m3.75 9v6m3-3H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
                     />
                   </svg>
-                  <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">
-                    Create Document</span>
+                  <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">Create Document</span>
                 </a>
               </li>
               <li>
                 <a
                   href="/fireproof/changes"
-                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black"
+                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -166,9 +141,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                     />
                   </svg>
 
-                                    <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">
-
-                    History</span>
+                  <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">History</span>
 
                   <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
                     {changes.length}
@@ -177,28 +150,55 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
               </li>
 
               <li>
-                
                 <a
                   href="/fireproof/dbindex"
-                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black"
+                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
-         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z" />
-</svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="w-6 h-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6.75 7.5l3 2.25-3 2.25m4.5 0h3m-9 8.25h13.5A2.25 2.25 0 0021 18V6a2.25 2.25 0 00-2.25-2.25H5.25A2.25 2.25 0 003 6v12a2.25 2.25 0 002.25 2.25z"
+                    />
+                  </svg>
 
-                  <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">
-                  Define Index</span>
+                  <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">Define Index</span>
                 </a>
 
                 <ul id="dropdown-example" class="py-2 space-y-2">
-     
                   {indexList.map((index: any, i: number) => (
+                    // <li>
+                    //   <a
+                    //     href={`/fireproof/dbindex?id=${i}`}
+                    //     class="flex font-light text-sm break-all font-mono items-center overflow-hidden w-full pl-11 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:hover:bg-gray-700"
+                    //   >
+                    //     {index.name}
+                    //   </a>
+                    // </li>
                     <li>
                       <a
                         href={`/fireproof/dbindex?id=${i}`}
-                        class="flex font-light text-sm break-all font-mono items-center overflow-hidden w-full pl-11 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                        class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
                       >
-                        {index.name}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6"
+                        >
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                        </svg>
+
+                        <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm text-black dark:text-gray-400">{index.name}</span>
                       </a>
                     </li>
                   ))}
