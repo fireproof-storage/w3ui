@@ -35,9 +35,10 @@ export function List({listId, navigateTo}): JSX.Element {
 
   return (
     <div>
-      <div class="text-center p-2">
+      <p class="text-center p-2">
         Current list: <strong>{list.title}</strong>
-      </div>
+      </p>
+      <button class="italic p-2 hover:text-orange-600" onClick={() => navigateTo({all : true})}>&lt; Back to all lists</button>
 
       <ul class="p-2">
         {todos.map((todo: TodoDoc) => {
@@ -56,8 +57,10 @@ export function List({listId, navigateTo}): JSX.Element {
           )
         })}
       </ul>
-      <InputArea onSubmit={onSubmit} placeholder="Add a new item to your list." />
-      <button class="italic" onClick={() => navigateTo({all : true})}>Back to all lists</button>
+      <div class="italic p-2">
+        Add an item:
+      </div>
+      <InputArea onSubmit={onSubmit} placeholder="Name the item and hit enter." />
     </div>
   )
 }

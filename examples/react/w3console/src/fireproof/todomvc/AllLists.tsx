@@ -39,29 +39,32 @@ export function AllLists({ navigateTo }): JSX.Element {
   return (
     <div>
       <div class="italic p-2">
-        Choose a todo list or create a new one:
+        View a todo list:
       </div>
       <ul class="p-2">
         {lists.map((l, i) => {
-          return todoItem(l, i, navigateTo)
+          return linkToList(l, i, navigateTo)
         })}
       </ul>
+      <div class="italic p-2">
+        Create a new list:
+      </div>
       <InputArea onSubmit={addList} placeholder="Name a new list and hit enter" />
     </div>
   )
 }
 
-const todoItem = ({ title, _id }: ListDoc, i: number, navigateTo: Function) => {
+const linkToList = ({ title, _id }: ListDoc, i: number, navigateTo: Function) => {
   const link =
     _id === '' ? (
       <label>&nbsp;</label>
     ) : (
       <label>
-        <button  onClick={() => navigateTo({ list: _id })}>
+        <button>
           {title}
         </button>
       </label>
     )
 
-  return <li class="p-2 hover:bg-gray-200 rounded" key={_id || i}>{link}</li>
+  return <li onClick={() => navigateTo({ list: _id })} class="p-4 hover:bg-gray-200 dark:hover:bg-slate-600  rounded" key={_id || i}>{link}</li>
 }

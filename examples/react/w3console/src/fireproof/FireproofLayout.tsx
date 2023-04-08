@@ -5,7 +5,7 @@ import { DefaultLayout } from '../components/Layout'
 // import Loader from '../components/Loader'
 import { TodoMVC } from './todomvc/TodoMVC.js'
 
-import { defineIndexes } from './todomvc/setupFireproof.js'
+import { defineIndexes, loadFixtures } from './todomvc/setupFireproof.js'
 
 import { SidebarMenu as FireproofSidebar } from '../fireproof/SidebarMenu'
 
@@ -17,7 +17,7 @@ declare global {
 export default function FireproofLayout({ children }): JSX.Element {
   const fp = useFireproof(
     defineIndexes,
-    async () => {},
+    loadFixtures,
     FireproofSidebar.dbName
   )
 

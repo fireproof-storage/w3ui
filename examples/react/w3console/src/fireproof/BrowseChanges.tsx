@@ -42,10 +42,10 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   }
 
   const headers = new Map()
-  const theDocs = []
+  const recentChanges = []
   for (const {key, value} of theChanges) {
     const theDoc = {_id : key, ...value}
-    theDocs.push(theDoc)
+    recentChanges.push(theDoc)
     for (const key of Object.keys(theDoc)) {
       if (headers.has(key)) {
         headers.set(key, headers.get(key) + 1)
@@ -60,7 +60,7 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
     <div class={` bg-slate-800 p-6`}>
       <a href="#" class="float-right hover:text-orange-400" onClick={resetChangesClock}>Hide existing changes</a>
       <h2 class="text-2xl">Recent changes</h2>
-      <DynamicTable headers={sortedHeaders} rows={theDocs} />
+      <DynamicTable headers={sortedHeaders} rows={recentChanges.reverse()} />
     </div>
   )
 }

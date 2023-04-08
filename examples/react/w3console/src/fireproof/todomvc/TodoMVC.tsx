@@ -2,10 +2,18 @@ import React from 'react'
 import { AllLists } from './AllLists'
 import { List } from './List'
 
+
+
 export const TodoMVC = () => {
-  const [nav, setNav] = React.useState<any>({all : true})
+  const route = localStorage.getItem('fpdemo-nav')
+  let startRoute = {all: true}
+  if (route) {
+    startRoute = JSON.parse(route)
+  }
+  const [nav, setNav] = React.useState<any>(startRoute)
   const navigateTo = (opts: any) => {
     console.log('navigateTo', opts)
+    localStorage.setItem('fpdemo-nav', JSON.stringify(opts))
     setNav(opts)
   }
   let page = null
@@ -15,9 +23,10 @@ export const TodoMVC = () => {
     page = <List listId={nav.list} navigateTo={navigateTo}/>
   }
   return (
-    <div class="p-4 w-full max-w-prose bg-white text-black">
+    <div class="p-6 mx-4 w-3/4 max-w-prose bg-white text-black dark:bg-slate-700 dark:text-gray-100">
       <h1 class="text-xl text-center font-bold p-2">TodoMVC</h1>
       {page}
+      <p class="m-4">This demo features the classic TodoMVC app to give you a feel for Fireproof. Create todo lists and items, and interact with the live data using the dashboard on the left.</p>
     </div>
   )
 }

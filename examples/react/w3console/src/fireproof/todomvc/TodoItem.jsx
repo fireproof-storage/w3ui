@@ -68,10 +68,11 @@ class TodoItem extends Component {
   render() {
     return (
       <li
-        className={`p-2 hover:bg-gray-200 rounded ${
+        className={`py-3 px-2 hover:bg-gray-200 dark:hover:bg-slate-600  rounded ${
           this.props.todo.completed && 'completed'} ${
           this.props.editing && 'editing'
         }`}
+        // onClick={this.props.onToggle} 
       >
         <div>
           <input
@@ -83,7 +84,7 @@ class TodoItem extends Component {
           {this.props.editing && (
           <input
             ref={this.EditFieldRef}
-            class="bg-slate-100 rounded w-3/4"
+            class="bg-slate-100 text-black rounded w-3/4"
             value={this.state.editText}
             onBlur={this.handleSubmit}
             onChange={this.handleChange}
@@ -91,7 +92,7 @@ class TodoItem extends Component {
           />
         )}
           {!this.props.editing && <label onDoubleClick={this.handleEdit}>{this.props.todo.title}</label>}
-          <button class="float-right" onClick={this.props.onDestroy} >x</button>
+          <button class="mr-2 float-right hover:text-orange-400" onClick={this.props.onDestroy} >x</button>
         </div>
       </li>
     )
