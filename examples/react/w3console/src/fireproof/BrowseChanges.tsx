@@ -55,7 +55,6 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   }
   headers.delete('_id')
   const sortedHeaders = ['_id',, ...Array.from(headers.entries()).sort((a, b) => b[1] - a[1]).map(([key]) => key)]
-
   return (
     <div class={` bg-slate-800 p-6`}>
       <a href="#" class="float-right hover:text-orange-400" onClick={resetChangesClock}>Hide existing changes</a>
@@ -65,18 +64,3 @@ export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
   )
 }
 
-function ChangeListing({ row: { key, value } }: any): JSX.Element {
-  return (
-    <li key={key} class="pt-1 pb-2">
-      <div class="flex items-center space-x-4">
-        <div class="flex-shrink-0">*</div>
-        <div class="flex-1 min-w-0">
-          <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-            <a href={`/fp-doc?id=${key}`}>{key}</a>
-          </p>
-          <p class="text-sm text-gray-500 truncate dark:text-gray-400">{JSON.stringify(value)}</p>
-        </div>
-      </div>
-    </li>
-  )
-}

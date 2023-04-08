@@ -207,7 +207,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                     <li>
                       <a
                         href={`/fireproof/dbindex?id=${i}`}
-                        class="flex font-light text-sm break-all font-mono items-center overflow-hidden w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+                        class="flex font-light text-sm break-all font-mono items-center overflow-hidden w-full pl-11 p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
                       >
                         {index.name}
                       </a>
