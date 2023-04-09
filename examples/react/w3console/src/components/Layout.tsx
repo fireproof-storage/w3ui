@@ -1,8 +1,10 @@
+import { ReactNode } from 'react'
 import { FireproofMenu } from '../fireproof/FireproofMenu'
 
+
 interface LayoutComponentProps {
-  sidebar?: JSX.Element | JSX.Element[]
-  children: JSX.Element | JSX.Element[]
+  sidebar?: JSX.Element | JSX.Element[] | ReactNode
+  children:  JSX.Element | JSX.Element[] | ReactNode
 }
 type LayoutComponent = (props: LayoutComponentProps) => JSX.Element
 

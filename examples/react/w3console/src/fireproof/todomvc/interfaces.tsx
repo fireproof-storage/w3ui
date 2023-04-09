@@ -1,12 +1,8 @@
-import { ReactNode } from 'react'
-
 export interface ListLoaderData {
   list: ListDoc
   todos: TodoDoc[]
 }
-export interface LayoutProps {
-  children?: ReactNode
-}
+
 interface Doc {
   _id: string
 }

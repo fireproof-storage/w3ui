@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { Fireproof } from '@fireproof/core'
 import { FireproofCtx, useFireproof } from '@fireproof/core/hooks/use-fireproof'
 // import { Fireproof } from '../../../../../../fireproof/packages/fireproof/index.js'
@@ -8,13 +10,18 @@ import { TodoMVC } from './todomvc/TodoMVC.js'
 import { SidebarMenu as FireproofSidebar } from './SidebarMenu'
 import { defineIndexes, loadFixtures } from './todomvc/setupFireproof.js'
 
+
 declare global {
   interface Window {
     fireproof: Fireproof
   }
 }
 
-export default function FireproofLayout({ children }): JSX.Element {
+type FireproofLayoutProps = {
+  children: ReactNode
+}
+
+export default function FireproofLayout({ children }:FireproofLayoutProps): JSX.Element {
   const fp = useFireproof(defineIndexes, loadFixtures, FireproofSidebar.dbName)
 
   return (
