@@ -28,14 +28,14 @@ export default function FireproofLayout({ children }:FireproofLayoutProps): JSX.
     <FireproofCtx.Provider value={fp}>
       <DefaultLayout
         sidebar={
-          <div class="flex-grow flex flex-col justify-between">
+          <div class="flex-grow flex lg:flex-col justify-between">
             <FireproofSidebar />
           </div>
         }
       >
         <div class="flex mb-4">
-          <div class="w-1/2  h-12">{children}</div>
-          <div class="w-1/2  h-12">
+          <div class="w-full md:w-1/2  h-12">{children}</div>
+          <div class="w-full md:w-1/2  h-12">
             <TodoMVC />
           </div>
         </div>
