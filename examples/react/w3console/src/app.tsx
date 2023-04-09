@@ -1,8 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import { Authenticator } from '@w3ui/react-keyring'
-import { W3APIProvider } from './components/W3API'
-
 // thanks, https://dev.to/franciscomendes10866/file-based-routing-using-vite-and-react-router-3fdo
 const pages = import.meta.glob('./pages/**/*.tsx', { eager: true })
 
@@ -22,8 +19,6 @@ for (const path of Object.keys(pages)) {
     action: pages[path]?.action,
     ErrorBoundary: pages[path]?.ErrorBoundary
   })
-
-  
 }
 
 const router = createBrowserRouter(
@@ -35,11 +30,5 @@ const router = createBrowserRouter(
 )
 
 export function App(): JSX.Element {
-  return (
-    <W3APIProvider uploadsListPageSize={20}>
-      <Authenticator className="h-full">
-        <RouterProvider router={router} />
-      </Authenticator>
-    </W3APIProvider>
-  )
+  return <RouterProvider router={router} />
 }

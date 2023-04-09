@@ -1,8 +1,7 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react'
-import { Combobox, Transition } from '@headlessui/react'
+import React, { useState, useEffect, useContext } from 'react'
 
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 import DynamicTable from './DynamicTable'
 
 interface BrowseChangesProps {}

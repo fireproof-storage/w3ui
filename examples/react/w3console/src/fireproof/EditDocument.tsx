@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 import { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
 import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'

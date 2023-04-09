@@ -1,16 +1,11 @@
-
-import React, { Fragment, useState, useEffect, useContext } from 'react'
-import { Combobox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
+import React, { useState, useEffect, useContext } from 'react'
 
 import DynamicTable from './DynamicTable'
 
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
-interface ListDocumentsProps {
-}
-
+interface ListDocumentsProps {}
 
 export function ListDocuments({}: ListDocumentsProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
@@ -47,7 +42,12 @@ export function ListDocuments({}: ListDocumentsProps): JSX.Element {
   headers.delete('_id')
 
   // sort the headers with the highest count first
-  const sortedHeaders = ['_id', ...Array.from(headers.entries()).sort((a, b) => b[1] - a[1]).map(([key]) => key)]
+  const sortedHeaders = [
+    '_id',
+    ...Array.from(headers.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([key]) => key)
+  ]
   return (
     <div class={`bg-slate-800 p-6`}>
       <h2 class="text-2xl">List Documents</h2>

@@ -1,5 +1,5 @@
-// import { Index, Fireproof } from '@fireproof/core'
-import { Index, Fireproof } from '../../../../../../../fireproof/packages/fireproof/index.js'
+import { Index, Fireproof } from '@fireproof/core'
+// import { Index, Fireproof } from '../../../../../../../fireproof/packages/fireproof/index.js'
 
 
 declare global {

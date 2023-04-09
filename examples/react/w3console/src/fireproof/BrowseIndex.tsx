@@ -1,8 +1,9 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-import DbIndex from '../../../../../../fireproof/packages/fireproof/src/db-index'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { Index } from '@fireproof/core'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import DbIndex from '../../../../../../fireproof/packages/fireproof/src/db-index'
 import DynamicTable from './DynamicTable'
 import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'
 
@@ -48,7 +49,6 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
 
   const headers = ['key', 'id', 'value']
 
-
   const saveTempQuery = () => {
     const mapFn = evalFn(editorCode)
     if (mapFn) {
@@ -56,8 +56,8 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
       if (alreadyExists > -1) {
         document.location = '/fireproof/dbindex?id=' + alreadyExists
       } else {
-        new DbIndex(database, mapFn, null)
-        persist()      
+        new Index(database, mapFn, null)
+        persist()
         document.location = '/fireproof/dbindex?id=' + (database.indexes.size - 1)
       }
     }
@@ -65,12 +65,12 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
   const runTempQuery = () => {
     const mapFn = evalFn(editorCode)
     if (mapFn) {
-      const index = new DbIndex(database, mapFn, null, { temporary: true })
+      const index = new Index(database, mapFn, null, { temporary: true })
       index.query().then(setQueryResult)
     }
   }
 
-  const editorChanged = ( {code} : any) => {
+  const editorChanged = ({ code }: any) => {
     setEditorCode(code)
   }
 
@@ -82,9 +82,19 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
       ) : (
         <>
           <EditableCodeHighlight onChange={editorChanged} code={emptyMap} language="js" />
-          <div class="flow-root p-4" >
-            <button class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-500 hover:bg-yellow-800" onClick={runTempQuery}>Query</button>
-            <button class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-700 hover:bg-yellow-800" onClick={saveTempQuery}>Save</button>
+          <div class="flow-root p-4">
+            <button
+              class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-500 hover:bg-yellow-800"
+              onClick={runTempQuery}
+            >
+              Query
+            </button>
+            <button
+              class="float-right rounded-lg py-2 px-4 ml-6 bg-slate-700 hover:bg-yellow-800"
+              onClick={saveTempQuery}
+            >
+              Save
+            </button>
           </div>
         </>
       )}
