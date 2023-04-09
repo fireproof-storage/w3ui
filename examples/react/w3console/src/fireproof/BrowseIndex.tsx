@@ -21,12 +21,22 @@ function evalFn(fnString: string) {
 
 export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
   const { ready, database, persist, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
-  const [updateCount, setUpdateCount] = useState(0)
   const [theIndex, setTheIndex] = useState<any>({ mapFnString: '' })
   const emptyMap = 'function(doc, map) { map(doc._id, doc) }'
   const [editorCode, setEditorCode] = useState<string>(emptyMap)
   const [queryResult, setQueryResult] = useState<any>({ rows: [] })
   const id = window.location.search.split('id=').pop()
+
+  async function getQuery() {
+    if (ready && database) {
+      if (id) {
+        theIndex.query && setQueryResult(await theIndex.query())
+      } else {
+        // runTempQuery() // todo why is this running the default query not the editorCode?
+      }
+    }
+  }
+
   useEffect(() => {
     if (id) {
       const indexes = [...database.indexes.values()]
@@ -38,14 +48,15 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     } else {
     }
   }, [ready, database])
+
   useEffect(() => {
-    async function getQuery() {
-      if (ready && database && theIndex.query) {
-        setQueryResult(await theIndex.query())
-      }
-    }
-    getQuery()
-  }, [ready, database, theIndex, updateCount])
+    if (id) getQuery()
+    else runTempQuery()
+    
+    addSubscriber('BrowseIndex', () => {
+      getQuery()
+    })
+  }, [ready, database, theIndex])
 
   const headers = ['key', 'id', 'value']
 
