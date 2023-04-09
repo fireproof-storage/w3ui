@@ -68,7 +68,7 @@ class TodoItem extends Component {
   render() {
     return (
       <li
-        className={`py-3 px-2 hover:bg-gray-200 dark:hover:bg-slate-600  rounded ${
+        className={`py-3 px-2 hover:bg-gray-200 dark:hover:bg-slate-600 ${
           this.props.todo.completed && 'completed'} ${
           this.props.editing && 'editing'
         }`}

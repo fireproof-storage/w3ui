@@ -38,7 +38,7 @@ export function List({listId, navigateTo}): JSX.Element {
       </p>
       <button class="italic p-2 hover:text-orange-600" onClick={() => navigateTo({all : true})}>&lt; Back to all lists</button>
 
-      <ul class="p-2">
+      <ul class="p-2 divide-y divide-slate-500">
         {todos.map((todo: TodoDoc) => {
           const handle = (fn: (arg0: TodoDoc, arg1: string) => any) => (val: string) => [setEditing(''), fn(todo, val)]
           return (
