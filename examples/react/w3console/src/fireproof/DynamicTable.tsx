@@ -48,7 +48,7 @@ export default function DynamicTable({ headers, rows, th = '_id', link = ['_id']
 
 function TableCell({ label, link = false }) {
   if (link) {
-    const href = `/fireproof/doc?id=${label}`
+    const href = `doc?id=${label}`
     return <a class="underline" href={href}>{formatTableCellContent(label)}</a>
   } else {
     return <>{formatTableCellContent(label)}</>

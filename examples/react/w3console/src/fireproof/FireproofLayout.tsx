@@ -5,7 +5,7 @@ import { FireproofCtx, useFireproof } from '@fireproof/core/hooks/use-fireproof'
 
 import { DefaultLayout } from '../components/Layout'
 import { TodoMVC } from './todomvc/TodoMVC.js'
-import { SidebarMenu as FireproofSidebar } from '../fireproof/SidebarMenu'
+import { SidebarMenu as FireproofSidebar } from './SidebarMenu'
 import { defineIndexes, loadFixtures } from './todomvc/setupFireproof.js'
 
 declare global {

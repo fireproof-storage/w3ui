@@ -16,7 +16,6 @@ export function List({listId, navigateTo}): JSX.Element {
   const [editing, setEditing] = useState('')
   const [{list, todos}, setData] = useState({list:{title: '', _id: '', type: 'list'}, todos : []})
   addSubscriber('List', async () => {
-    console.log('db changes')
     getList()
   })
 
