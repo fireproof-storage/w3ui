@@ -54,11 +54,11 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     if (mapFn) {
       const alreadyExists = [...database.indexes.values()].findIndex((index: any) => index.mapFnString === editorCode)
       if (alreadyExists > -1) {
-        document.location = '/fireproof/dbindex?id=' + alreadyExists
+        document.location = 'dbindex?id=' + alreadyExists
       } else {
         new Index(database, mapFn, null)
         persist()
-        document.location = '/fireproof/dbindex?id=' + (database.indexes.size - 1)
+        document.location = 'dbindex?id=' + (database.indexes.size - 1)
       }
     }
   }
