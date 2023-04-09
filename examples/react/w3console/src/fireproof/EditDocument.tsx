@@ -44,14 +44,14 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
     const data = JSON.parse(docToSave)
     const resp = await database.put({ _id, ...data })
     if (!_id) {
-      window.location.href = `/fireproof/doc?id=${resp.id}`
+      window.location.href = `doc?id=${resp.id}`
     }
     setNeedsSave(false)
   }
 
   async function deleteDocument(_id: string) {
     await database.del(_id)
-    window.location.href = `/fireproof/docs`
+    window.location.href = `docs`
   }
 
   function editorChanged({ code, valid }) {
