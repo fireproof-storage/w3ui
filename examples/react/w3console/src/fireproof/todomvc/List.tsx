@@ -58,7 +58,7 @@ export function List({listId, navigateTo}): JSX.Element {
       <div class="italic p-2">
         Add an item:
       </div>
-      <InputArea onSubmit={onSubmit} placeholder="Name the item and hit enter." />
+      <InputArea onSubmit={onSubmit} placeholder="Name the item and hit enter." autoFocus={false}  />
     </div>
   )
 }

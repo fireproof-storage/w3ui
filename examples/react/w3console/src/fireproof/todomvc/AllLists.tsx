@@ -45,7 +45,7 @@ export function AllLists({ navigateTo }): JSX.Element {
         })}
       </ul>
       <div class="italic p-2">Create a new list:</div>
-      <InputArea onSubmit={addList} placeholder="Name a new list and hit enter" />
+      <InputArea onSubmit={addList} placeholder="Name a new list and hit enter" autoFocus={false} />
     </div>
   )
 }
