@@ -27,7 +27,13 @@ export const TodoMVC = () => {
       <p class="m-4">
         Play with the classic TodoMVC app to get a feel for Fireproof. Create todo lists and items, and interact with
         live data using the dashboard on the left. The production dashboard includes additional options such as
-        replication, sync, and validation. Get started with <a class="underline hover:text-orange-600" href="https://fireproof.storage/documentation/usefireproof-hook-for-react/">the Fireproof React hook.</a>
+        replication, sync, and validation. Get started with{' '}
+        <a
+          class="underline hover:text-orange-600"
+          href="https://fireproof.storage/documentation/usefireproof-hook-for-react/"
+        >
+          the Fireproof React hook.
+        </a>
       </p>
     </div>
   )

@@ -1,4 +1,3 @@
-import { tosUrl, Logo } from '../brand'
 import { FireproofMenu } from '../fireproof/FireproofMenu'
 
 interface LayoutComponentProps {

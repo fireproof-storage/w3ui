@@ -2,9 +2,8 @@ import React, { useEffect } from 'react'
 import { useState, useContext } from 'react'
 import InputArea from './InputArea'
 import TodoItem from './TodoItem.jsx'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
 
 import {  TodoDoc } from '../interfaces'
 import { makeQueryFunctions } from './makeQueryFunctions'
