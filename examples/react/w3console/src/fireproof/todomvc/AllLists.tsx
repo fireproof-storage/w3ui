@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import InputArea from './InputArea'
-// import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
 import { ListDoc } from './interfaces'
 import { makeQueryFunctions } from './makeQueryFunctions'
 

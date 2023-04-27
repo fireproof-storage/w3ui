@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-import { Index } from '@fireproof/core'
-// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-// import DbIndex from '../../../../../../fireproof/packages/fireproof/src/db-index'
+// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { Index } from '@fireproof/core'
+import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import {Index} from '../../../../../../fireproof/packages/fireproof/src/fireproof.js'
 import DynamicTable from './DynamicTable'
 import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'
 
@@ -20,7 +20,7 @@ function evalFn(fnString: string) {
 }
 
 export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
-  const { ready, database, persist, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [theIndex, setTheIndex] = useState<any>({ mapFnString: '' })
   const emptyMap = 'function(doc, map) { map(doc._id, doc) }'
   const [editorCode, setEditorCode] = useState<string>(emptyMap)
@@ -60,15 +60,15 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
 
   const headers = ['key', 'id', 'value']
 
-  const saveTempQuery = () => {
+  const saveTempQuery = async () => {
     const mapFn = evalFn(editorCode)
     if (mapFn) {
       const alreadyExists = [...database.indexes.values()].findIndex((index: any) => index.mapFnString === editorCode)
       if (alreadyExists > -1) {
         document.location = 'dbindex?id=' + alreadyExists
       } else {
-        new Index(database, mapFn, null)
-        persist()
+        const index = new Index(database, mapFn, null)
+        await index.query({limit: 0}) // force the index to be added to the clock
         document.location = 'dbindex?id=' + (database.indexes.size - 1)
       }
     }

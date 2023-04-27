@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
 interface SidebarMenuProps {}
 
@@ -10,6 +10,8 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   const [indexList, setIndexList] = useState<any>([])
   const [changes, setChanges] = useState([])
   const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
+
+  // console.log('sidebarMenu', ready, database, indexList, changes, firstClock)
 
   // todo extract to useChanges
   async function queryChanges() {
@@ -33,7 +35,8 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   }, [ready, database])
 
   useEffect(() => {
-    setIndexList([...database.indexes.values()])
+    if (ready)
+      setIndexList([...database.indexes.values()])
   }, [ready, database])
 
   return (

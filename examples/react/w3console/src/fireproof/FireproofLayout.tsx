@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
 
-import { Fireproof } from '@fireproof/core'
-import { FireproofCtx, useFireproof } from '@fireproof/core/hooks/use-fireproof'
-// import { Fireproof } from '../../../../../../fireproof/packages/fireproof/index.js'
-// import { FireproofCtx, useFireproof } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import { Fireproof } from '@fireproof/core'
+// import { FireproofCtx, useFireproof } from '@fireproof/core/hooks/use-fireproof'
+import { Fireproof } from '../../../../../../fireproof/packages/fireproof/src/index.js'
+import { FireproofCtx, useFireproof } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof.js'
 
 import { DefaultLayout } from '../components/Layout'
 import { TodoMVC } from './todomvc/TodoMVC.js'
@@ -22,8 +22,8 @@ type FireproofLayoutProps = {
 }
 
 export default function FireproofLayout({ children }:FireproofLayoutProps): JSX.Element {
-  const fp = useFireproof(defineIndexes, loadFixtures, FireproofSidebar.dbName)
-
+  const fp = useFireproof(FireproofSidebar.dbName, defineIndexes, loadFixtures)
+  console.log('fp', fp)
   return (
     <FireproofCtx.Provider value={fp}>
       <DefaultLayout
