@@ -2,8 +2,8 @@ import React, { useEffect } from 'react'
 import { useState, useContext } from 'react'
 import InputArea from './InputArea'
 import TodoItem from './TodoItem.jsx'
-// import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
 
 import {  TodoDoc } from '../interfaces'
 import { makeQueryFunctions } from './makeQueryFunctions'
@@ -30,7 +30,7 @@ export function List({listId, navigateTo}): JSX.Element {
 
   const edit = (todo: TodoDoc) => () => setEditing(todo._id)
   const onSubmit = async (title: string) => await addTodo(list._id, title)
-
+  // console.log('list', listId, list, todos)
   return (
     <div>
       <p class="text-center p-2">

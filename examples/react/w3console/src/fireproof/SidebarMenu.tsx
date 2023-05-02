@@ -9,34 +9,33 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
   const [indexList, setIndexList] = useState<any>([])
   const [changes, setChanges] = useState([])
-  const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
+  // const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
 
   // console.log('sidebarMenu', ready, database, indexList, changes, firstClock)
 
   // todo extract to useChanges
-  async function queryChanges() {
-    if (ready && database) {
-      const results = await database.changesSince(firstClock)
-      if (!firstClock.length) {
-        localStorage.setItem('firstClock', JSON.stringify(results.clock))
-        setFirstClock(results.clock)
-      } else setChanges(results.rows)
-    }
-  }
+  // async function queryChanges() {
+  //   if (ready && database) {
+  //     const results = await database.changesSince(firstClock)
+  //     if (!firstClock.length) {
+  //       localStorage.setItem('firstClock', JSON.stringify(results.clock))
+  //       setFirstClock(results.clock)
+  //     } else setChanges(results.rows)
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   if (ready && database) {
+  //     // todo move inside useFireproof.addSubscriber
+  //     addSubscriber('SidebarMenu', () => {
+  //       queryChanges()
+  //     })
+  //   }
+  //   queryChanges()
+  // }, [ready, database])
 
   useEffect(() => {
-    if (ready && database) {
-      // todo move inside useFireproof.addSubscriber
-      addSubscriber('SidebarMenu', () => {
-        queryChanges()
-      })
-    }
-    queryChanges()
-  }, [ready, database])
-
-  useEffect(() => {
-    if (ready)
-      setIndexList([...database.indexes.values()])
+    if (ready) setIndexList([...database.indexes.values()])
   }, [ready, database])
 
   return (
@@ -143,9 +142,9 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
 
                   <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">History</span>
 
-                  <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                  {/* <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
                     {changes.length}
-                  </span>
+                  </span> */}
                 </a>
               </li>
 
@@ -198,7 +197,9 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                           <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                         </svg>
 
-                        <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm text-black dark:text-gray-400">{index.name}</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap font-mono text-sm text-black dark:text-gray-400">
+                          {index.name}
+                        </span>
                       </a>
                     </li>
                   ))}
@@ -226,6 +227,34 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   </span>
                 </a>
               </li> */}
+
+              <li>
+                <a
+                  href="sync"
+                  class="flex items-center p-2 text-gray-500 transition duration-75 dark:text-gray-400 hover:dark:text-white hover:text-black rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99"
+                    />
+                  </svg>
+
+                  <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">Live Sync</span>
+
+                  <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                    ok
+                  </span>
+                </a>
+              </li>
             </ul>
           </div>
         </aside>

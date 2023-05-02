@@ -26,7 +26,9 @@ patchedPreactPlugin[0].config = () => ({
 // https://vitejs.dev/config/
 export default defineConfig({
   base: '',
-  plugins: [patchedPreactPlugin, nodePolyfills({
+  plugins: [
+    patchedPreactPlugin,
+     nodePolyfills({
     // Whether to polyfill `node:` protocol imports.
     protocolImports: false
   })],

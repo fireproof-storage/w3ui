@@ -23,7 +23,7 @@ type FireproofLayoutProps = {
 
 export default function FireproofLayout({ children }:FireproofLayoutProps): JSX.Element {
   const fp = useFireproof(FireproofSidebar.dbName, defineIndexes, loadFixtures)
-  console.log('fp', fp)
+  // console.log('fp', fp)
   return (
     <FireproofCtx.Provider value={fp}>
       <DefaultLayout

@@ -7,6 +7,7 @@ declare global {
     fireproof: Fireproof
   }
 }
+// should be in makeQueryFunctions
 export const defineIndexes = (database: Fireproof) => {
   database.allLists = new Index(database, 'allLists', function (doc, map) {
     if (doc.type === 'list') map(doc.type, doc)
