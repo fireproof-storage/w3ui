@@ -1,38 +1,38 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
 interface SidebarMenuProps {}
 
 export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const [indexList, setIndexList] = useState<any>([])
   const [changes, setChanges] = useState([])
-  // const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
+  const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
 
   // console.log('sidebarMenu', ready, database, indexList, changes, firstClock)
 
   // todo extract to useChanges
-  // async function queryChanges() {
-  //   if (ready && database) {
-  //     const results = await database.changesSince(firstClock)
-  //     if (!firstClock.length) {
-  //       localStorage.setItem('firstClock', JSON.stringify(results.clock))
-  //       setFirstClock(results.clock)
-  //     } else setChanges(results.rows)
-  //   }
-  // }
+  async function queryChanges() {
+    if (ready && database) {
+      const results = await database.changesSince(firstClock)
+      if (!firstClock.length) {
+        localStorage.setItem('firstClock', JSON.stringify(results.clock))
+        setFirstClock(results.clock)
+      } else setChanges(results.rows)
+    }
+  }
 
-  // useEffect(() => {
-  //   if (ready && database) {
-  //     // todo move inside useFireproof.addSubscriber
-  //     addSubscriber('SidebarMenu', () => {
-  //       queryChanges()
-  //     })
-  //   }
-  //   queryChanges()
-  // }, [ready, database])
+  useEffect(() => {
+    if (ready && database) {
+      // todo move inside useFireproof.addSubscriber
+      database.subscribe(() => {
+        queryChanges()
+      })
+    }
+    queryChanges()
+  }, [ready, database])
 
   useEffect(() => {
     if (ready) setIndexList([...database.indexes.values()])
@@ -142,9 +142,9 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
 
                   <span class="flex-1 ml-3 whitespace-nowrap text-black dark:text-white">History</span>
 
-                  {/* <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
+                  <span class="inline-flex items-center justify-center w-3 h-3 p-3 ml-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">
                     {changes.length}
-                  </span> */}
+                  </span>
                 </a>
               </li>
 

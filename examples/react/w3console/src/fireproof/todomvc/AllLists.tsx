@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useContext } from 'react'
 import InputArea from './InputArea'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
 import { ListDoc } from './interfaces'
 import { makeQueryFunctions } from './makeQueryFunctions'
 
@@ -20,7 +20,7 @@ const threeEmptyLists: ListDoc[] = [
  */
 export function AllLists({ navigateTo }): JSX.Element {
   // first data stuff
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const { addList, fetchAllLists } = makeQueryFunctions({ ready, database })
   const [lists, setLists] = React.useState<ListDoc[]>(threeEmptyLists)
 
@@ -28,12 +28,11 @@ export function AllLists({ navigateTo }): JSX.Element {
     setLists(await fetchAllLists())
   }
 
-  addSubscriber('AllLists', () => {
-    getLists()
-  })
-
   useEffect(() => {
     getLists()
+    return database.subscribe(() => {
+      getLists()
+    })
   }, [ready, database])
 
   return (

@@ -1,20 +1,20 @@
 import React, { useState, useEffect, useContext } from 'react'
 
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
 // import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 import DynamicTable from './DynamicTable'
 
 interface BrowseChangesProps {}
 
 export function BrowseChanges({}: BrowseChangesProps): JSX.Element {
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [theChanges, setTheChanges] = useState<any>([])
   // console.log('BrowseChanges', updateCount, theChanges)
   const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock')||'[]') || null)
   useEffect(() => {
     if (ready && database) {
-      addSubscriber('BrowseChanges', () => {
+      database.subscribe(() => {
         setUpdateCount(count => count + 1)
       })
     }

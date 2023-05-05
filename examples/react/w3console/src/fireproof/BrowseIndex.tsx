@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-// import { Index } from '@fireproof/core'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-import {Index} from '../../../../../../fireproof/packages/fireproof/src/fireproof.js'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
+import { Index } from '@fireproof/core'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import {Index} from '../../../../../../fireproof/packages/fireproof/src/fireproof.js'
 import DynamicTable from './DynamicTable'
 import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'
 
@@ -20,7 +20,7 @@ function evalFn(fnString: string) {
 }
 
 export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const [theIndex, setTheIndex] = useState<any>({ mapFnString: '' })
   const emptyMap = 'function(doc, map) { map(doc._id, doc) }'
   const [editorCode, setEditorCode] = useState<string>(emptyMap)
@@ -53,7 +53,7 @@ export function BrowseIndex({}: BrowseIndexProps): JSX.Element {
     if (id) getQuery()
     else runTempQuery()
     
-    addSubscriber('BrowseIndex', () => {
+    database.subscribe(() => {
       getQuery()
     })
   }, [ready, database, theIndex])

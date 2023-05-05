@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
 
-// import { Fireproof } from '@fireproof/core'
-// import { FireproofCtx, useFireproof } from '@fireproof/core/hooks/use-fireproof'
-import { Fireproof } from '../../../../../../fireproof/packages/fireproof/src/index.js'
-import { FireproofCtx, useFireproof } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof.js'
+import { Fireproof } from '@fireproof/core'
+import { FireproofCtx, useFireproof } from '@fireproof/react'
+// import { Fireproof } from '../../../../../../fireproof/packages/fireproof/src/index.js'
+// import { FireproofCtx, useFireproof } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof.js'
 
 import { DefaultLayout } from '../components/Layout'
 import { TodoMVC } from './todomvc/TodoMVC.js'

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react'
 
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
-// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/react'
 import { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
 import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'
@@ -9,7 +9,7 @@ import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'
 interface EditDocumentProps {}
 
 export function EditDocument({}: EditDocumentProps): JSX.Element {
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [theDocument, setTheDocument] = useState<any>({})
   const [docToSave, setDocToSave] = useState<any>('{}')
@@ -19,7 +19,7 @@ export function EditDocument({}: EditDocumentProps): JSX.Element {
   // console.log('EditDocument', updateCount, theDocument)
   useEffect(() => {
     if (ready && database) {
-      addSubscriber('EditDocument', () => {
+      database.subscribe(() => {
         setUpdateCount(count => count + 1)
       })
     }

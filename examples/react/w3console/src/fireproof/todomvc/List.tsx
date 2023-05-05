@@ -2,22 +2,18 @@ import React, { useEffect } from 'react'
 import { useState, useContext } from 'react'
 import InputArea from './InputArea'
 import TodoItem from './TodoItem.jsx'
-import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
-// import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
 
-import {  TodoDoc } from '../interfaces'
+import { TodoDoc } from '../interfaces'
 import { makeQueryFunctions } from './makeQueryFunctions'
 
-
-export function List({listId, navigateTo}): JSX.Element {
+export function List({ listId, navigateTo }): JSX.Element {
   // first data stuff
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const { addTodo, toggle, destroy, updateTitle, fetchListWithTodos } = makeQueryFunctions({ ready, database })
   const [editing, setEditing] = useState('')
-  const [{list, todos}, setData] = useState({list:{title: '', _id: '', type: 'list'}, todos : []})
-  addSubscriber('List', async () => {
-    getList()
-  })
+  const [{ list, todos }, setData] = useState({ list: { title: '', _id: '', type: 'list' }, todos: [] })
 
   async function getList() {
     setData(await fetchListWithTodos(listId))
@@ -25,8 +21,10 @@ export function List({listId, navigateTo}): JSX.Element {
 
   useEffect(() => {
     getList()
+    return database.subscribe(() => {
+      getList()
+    })
   }, [ready, database])
-
 
   const edit = (todo: TodoDoc) => () => setEditing(todo._id)
   const onSubmit = async (title: string) => await addTodo(list._id, title)
@@ -36,7 +34,9 @@ export function List({listId, navigateTo}): JSX.Element {
       <p class="text-center p-2">
         Current list: <strong>{list.title}</strong>
       </p>
-      <button class="italic p-2 hover:text-orange-600" onClick={() => navigateTo({all : true})}>&lt; Back to all lists</button>
+      <button class="italic p-2 hover:text-orange-600" onClick={() => navigateTo({ all: true })}>
+        &lt; Back to all lists
+      </button>
 
       <ul class="p-2 divide-y divide-slate-500">
         {todos.map((todo: TodoDoc) => {
@@ -55,10 +55,8 @@ export function List({listId, navigateTo}): JSX.Element {
           )
         })}
       </ul>
-      <div class="italic p-2">
-        Add an item:
-      </div>
-      <InputArea onSubmit={onSubmit} placeholder="Name the item and hit enter." autoFocus={false}  />
+      <div class="italic p-2">Add an item:</div>
+      <InputArea onSubmit={onSubmit} placeholder="Name the item and hit enter." autoFocus={false} />
     </div>
   )
 }

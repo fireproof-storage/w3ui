@@ -2,19 +2,19 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import DynamicTable from './DynamicTable'
 
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/core/hooks/use-fireproof'
+import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
 // import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
 interface ListDocumentsProps {}
 
 export function ListDocuments({}: ListDocumentsProps): JSX.Element {
-  const { ready, database, addSubscriber } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
   const [updateCount, setUpdateCount] = useState(0)
   const [allDocuments, setAllDocuments] = useState<any>([])
   // console.log('allDocuments', updateCount, allDocuments)
   useEffect(() => {
     if (ready && database) {
-      addSubscriber('ListDocuments', () => {
+      database.subscribe(() => {
         setUpdateCount(count => count + 1)
       })
     }
