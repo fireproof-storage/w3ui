@@ -7,8 +7,8 @@ import { defaultProps } from 'prism-react-renderer'
 import theme from 'prism-react-renderer/themes/nightOwl'
 import { CodeHighlight, EditableCodeHighlight } from './CodeHighlight'
 
-// import { Sync } from '@fireproof/core'
-import { Sync } from '../../../../../../fireproof/packages/fireproof/src/fireproof.js'
+import { Sync } from '@fireproof/core'
+// import { Sync } from '../../../../../../fireproof/packages/fireproof/src/fireproof.js'
 
 interface EditDocumentProps {}
 
@@ -24,47 +24,34 @@ export function ManageSync({}: EditDocumentProps): JSX.Element {
   // console.log('EditDocument', updateCount, theDocument)
   useEffect(() => {
     if (ready && database) {
-      database.subscribe(() => {
+      const theSync = new Sync(database)
+      window.sync = theSync
+      setSync(theSync)
+      return database.subscribe(() => {
         setUpdateCount(count => count + 1)
       })
     }
   }, [ready, database])
-  // useEffect(() => {
-  //   async function getDocument() {
-  //     if (ready && database && id) {
-  //       const theDoc = await database.get(id).catch((e: { message: string }) => {
-  //         if (e.message !== 'Not found') throw e
-  //         return { _id: id }
-  //       })
-  //       const { data } = docAndMeta(theDoc)
-  //       const jsonDoc = JSON.stringify(data)
-  //       setDocToSave(jsonDoc)
-  //       setTheDocument(JSON.parse(JSON.stringify(theDoc)))
-  //     }
-  //   }
-  //   getDocument()
-  // }, [ready, database, updateCount])
 
   async function makeOffer() {
     console.log('makeOffer')
-    const sync = new Sync(database)
+    if (!sync) return
     const offer = await sync.offer()
     setHandshake(offer)
     setDidInitiate(true)
-    setSync(sync)
   }
 
   async function doAccept() {
     console.log('doAccept', handshake)
-    const sync = new Sync(database)
+    if (!sync) return
     const accept = await sync.accept(handshake)
-    setSync(sync)
     setHandshake(accept)
     setDidAccept(true)
   }
 
   async function doConnect() {
     console.log('doConnect', handshake)
+    if (!sync) return
     sync.connect(handshake)
     setHandshake("connected")
   }
