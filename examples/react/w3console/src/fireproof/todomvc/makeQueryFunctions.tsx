@@ -13,17 +13,17 @@ export function makeQueryFunctions({ ready, database }): {
   const fetchAllLists = async () => {
     // console.log('fetchAllLists', ready, database)
     const lists =
-      ready && database.allLists ? await database.allLists.query() : { rows: [] }
+      ready && database.index('allLists') ? await database.index('allLists').query() : { rows: [] }
     // console.log('fetchAllLists', database.allLists, lists.rows.map(({ value }: any) => value))
     return lists.rows.map(({ value }: any) => value)
   }
 
   const fetchListWithTodos = async (_id: string) => {
-    if (!ready || !database.todosByList)
+    if (!ready || !database.index('todosByList'))
       return Promise.resolve({ list: { title: '', type: 'list', _id: '' }, todos: [] })
 
     const list = await database.get(_id)
-    const todos = await database.todosByList.query({
+    const todos = await database.index('todosByList').query({
       range: [
         [_id, '0'],
         [_id, '9']
@@ -59,7 +59,7 @@ export function makeQueryFunctions({ ready, database }): {
   const clearCompleted = async listId => {
     const result =
       ready &&
-      (await database.todosByList.query({
+      (await database.index('todosByList').query({
         range: [
           [listId, '1'],
           [listId, 'x']

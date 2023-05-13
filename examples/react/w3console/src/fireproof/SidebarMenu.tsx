@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react'
 
-import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
+import { FireproofCtx, FireproofCtxValue, useFireproof } from '@fireproof/react'
 // import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
 
 interface SidebarMenuProps {}
 
 export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
-  const { ready, database } = useContext(FireproofCtx) as FireproofCtxValue
+  const { ready, database } = useFireproof('todomvc') //useContext(FireproofCtx) as FireproofCtxValue
   const [indexList, setIndexList] = useState<any>([])
   const [changes, setChanges] = useState([])
   const [firstClock, setFirstClock] = useState(JSON.parse(localStorage.getItem('firstClock') || '[]') || null)
@@ -263,4 +263,4 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
   )
 }
 
-SidebarMenu.dbName = 'todomvc'
+// SidebarMenu.dbName = 'todomvc'

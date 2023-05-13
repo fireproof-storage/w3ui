@@ -1,18 +1,19 @@
-import { Index, Fireproof } from '@fireproof/core'
+import { Index, Database } from '@fireproof/core'
 // import { Index, Fireproof } from '../../../../../../../fireproof/packages/fireproof/src/fireproof.js'
 
 
 declare global {
   interface Window {
-    fireproof: Fireproof
+    fireproof: Database
   }
 }
 // should be in makeQueryFunctions
-export const defineIndexes = (database: Fireproof) => {
-  database.allLists = new Index(database, 'allLists', function (doc, map) {
+export const defineIndexes = (database: Database) => {
+  console.log('defineIndexes')
+  new Index(database, 'allLists', function (doc, map) {
     if (doc.type === 'list') map(doc.type, doc)
   })
-  database.todosByList = new Index(database, 'todosByList', function (doc, map) {
+  new Index(database, 'todosByList', function (doc, map) {
     if (doc.type === 'todo' && doc.listId) {
       map([doc.listId, doc.createdAt], doc)
     }
@@ -31,11 +32,8 @@ function mulberry32(a: number) {
 }
 const rand = mulberry32(1) // determinstic fixtures
 
-export async function loadFixtures(database: {
-  put: (arg0: any) => any
-  allLists: { query: (opts) => Promise<any> }
-  todosByList: { query: (opts) => Promise<any> }
-}) {
+export async function loadFixtures(database: Database) {
+  console.log('loadFixtures')
   const nextId = (prefix = '') => prefix + rand().toString(32).slice(2)
   const listTitles = ['Building Apps', 'Having Fun', 'Getting Groceries']
   const todoTitles = [
@@ -64,5 +62,5 @@ export async function loadFixtures(database: {
       })
     }
   }
-  await database.allLists.query({ range : [0,1]})
+  await database.index('allLists').query({ range : [0,1]})
 }

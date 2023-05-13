@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import DynamicTable from './DynamicTable'
 
 import { FireproofCtx, FireproofCtxValue } from '@fireproof/react'
-// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/fireproof/hooks/use-fireproof'
+// import { FireproofCtx, FireproofCtxValue } from '../../../../../../fireproof/packages/react/dist/index.js'
 
 interface ListDocumentsProps {}
 

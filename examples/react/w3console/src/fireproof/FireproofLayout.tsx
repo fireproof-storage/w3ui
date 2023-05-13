@@ -10,13 +10,6 @@ import { TodoMVC } from './todomvc/TodoMVC.js'
 import { SidebarMenu as FireproofSidebar } from './SidebarMenu'
 import { defineIndexes, loadFixtures } from './todomvc/setupFireproof.js'
 
-
-declare global {
-  interface Window {
-    fireproof: Fireproof
-  }
-}
-
 type FireproofLayoutProps = {
   children: ReactNode
 }
