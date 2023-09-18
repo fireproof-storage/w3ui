@@ -57,7 +57,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
         >
           <div class="h-full px-4 py-5 overflow-y-auto">
             <ul class="space-y-2 font-medium">
-              {/* <li>
+              <li>
                 <a
                   href="#"
                   class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -74,7 +74,7 @@ export function SidebarMenu({}: SidebarMenuProps): JSX.Element {
                   </svg>
                   <span class="ml-3">Account</span>
                 </a>
-              </li> */}
+              </li>
               <li>
                 <a
                   href="docs"
